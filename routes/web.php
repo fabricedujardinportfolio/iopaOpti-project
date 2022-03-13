@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\AgentAuthController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('login',[AgentAuthController::class,"login"])->name('login')->middleware('AlreadyLoggedIn');
+Route::get('logout',[AgentAuthController::class,"logout"])->name('logout');
+Route::post('check',[AgentAuthController::class,"check"])->name('auth.check');
