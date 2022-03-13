@@ -367,6 +367,7 @@
                     </div>
                     @endif
                 </div>
+                <h2>APP IOPA OPTI</h2>
                 <input type="email" id="login" class="fadeIn second" name="email" placeholder="email" required
                     value="{{old('email')}}">
                 <div class="text-danger">@error('email') {{$message}} @enderror</div>

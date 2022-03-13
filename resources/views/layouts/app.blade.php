@@ -12,6 +12,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">  
     <link href="{{ asset('css/impression.css') }}" rel="stylesheet" media="print">  
+    <script src="{{ asset('js/hommePage.js') }}"></script>
     <style>
         html {
             overflow: scroll;

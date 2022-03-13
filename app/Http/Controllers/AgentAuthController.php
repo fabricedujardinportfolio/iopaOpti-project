@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\Agent;
 use App\Models\AgentsHasApplication;
 use Illuminate\Http\Request;
@@ -38,6 +40,47 @@ class AgentAuthController extends Controller
             }
         } else {
             return back()->with('fail', 'Aucun compte trouvé pour cette adresse e-mail');
+        }
+    }
+    public function home(Request $request)
+    {
+        $mytime = Carbon::now();
+        $nowdate = $mytime->toDateString();
+        $userTimezone = date_default_timezone_set('Pacific/Noumea');
+        $dateNo = date("d-m-Y H:m:s");
+        $deadDate = date("10-04-2022");
+        $dateNow = date('d-m-Y', strtotime($dateNo));
+        $deDateNow = date('d-m-Y', strtotime($deadDate));
+        // dd($deDateNow);
+        try {
+            $data = Agent::select('name', 'first_name', 'id')
+                ->where("name", "LIKE", "%{$request->get('query')}%")
+                ->orwhere('first_name', "LIKE", "%{$request->get('query')}%")
+                ->get();
+        } catch (QueryException $exception) {
+            dd($exception->getMessage());
+        }
+
+        if (session()->has('LoggedUser')) {
+            try {
+                $agent = Agent::where("id", "=", session('LoggedUser'))->first();
+                // $autorisationAgent = Agent::select('role_ressource')->where('id', '=', $agent->id)->get();
+                $data = [
+                    "LoggedUserInfo" => $agent,
+                    // "LoggedUserAuth" => $autorisationAgent,
+                ];
+            } catch (QueryException $exception) {
+                dd($exception->getMessage());
+            }
+        }
+        return view('home', compact('agent','dateNow', 'deDateNow'), $data);
+    }
+    public function logout()
+    {
+        if (session()->has('LoggedUser')) {
+            session()->regenerate();
+            session()->flush('LoggedUser');
+            return redirect('login');
         }
     }
 }
