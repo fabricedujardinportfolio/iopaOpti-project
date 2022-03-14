@@ -27,19 +27,19 @@ class AgentAuthController extends Controller
             if (($request->email) == $agent->email) {
                 if (($request->password) == $agent->passwords) {
                     try {
-                        $autorisation = AgentsHasApplication::where('agents_id', '=', $agent->id)->where('applications_id', '=', 2)->get();
-                        $request->session()->put('LoggedUser', $agent->id, $autorisation);
-                        $request->session()->put('LoggedUserAuth', $autorisation);
+                        $request->session()->put('LoggedUser', $agent->id);
                     } catch (QueryException $exception) {
                         dd($exception->getMessage());
                     }
                     return redirect('/')->with("success", "Bonjour agent : $agent->name $agent->first_name");
                 } else {
-                    return back()->with('fail', 'Mot de passe incorrect');
+                    return back()->with('fail', 'Aucun compte trouvé pour ce mot de passe');
                 }
+            }else {
+                return back()->with('fail', 'Aucun compte trouvé pour cette adresse e-mail');
             }
         } else {
-            return back()->with('fail', 'Aucun compte trouvé pour cette adresse e-mail');
+            return back()->with('fail', 'Aucun compte trouver');
         }
     }
     public function home(Request $request)

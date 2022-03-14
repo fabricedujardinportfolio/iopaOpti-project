@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GIEP-NC</title>
+    <title>{{ config('app.name') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer=""></script>
     <script src="{{ asset('js/hommePage.js') }}"></script> 
@@ -24,6 +24,7 @@
         
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('js/hommePagebas.js') }}"></script> 
 </head>
 
 <body class="container-fluid">
