@@ -29,6 +29,7 @@
                         <table class="table table-striped table-bordered ">
                             <thead>
                                 <tr>
+                                    <th>Action</th>
                                     <th>Identifiant</th>
                                     <th>Prénom</th>
                                     <th>Nom</th>
@@ -43,6 +44,7 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <th><a href="#">MODIFIER</a></th>
                                     <td>02875401</td>
                                     <td>Mohamed</td>
                                     <td>Rahhal</td>
@@ -55,6 +57,7 @@
                                     <td>mohamed.rahhal@gmail.com</td>
                                 </tr>
                                 <tr>
+                                    <th><a href="#">MODIFIER</a></th>
                                     <td>07986532</td>
                                     <td>Rachid</td>
                                     <td>Hadded</td>
@@ -67,6 +70,7 @@
                                     <td>rachidhadded@gmail.com</td>
                                 </tr>
                                 <tr>
+                                    <th><a href="#">MODIFIER</a></th>
                                     <td>03985421</td>
                                     <td>Jamila</td>
                                     <td>Rahmani</td>
@@ -79,6 +83,7 @@
                                     <td>rahmani123@gmail.com</td>
                                 </tr>
                                 <tr>
+                                    <th><a href="#">MODIFIER</a></th>
                                     <td>03985477</td>
                                     <td>Samira</td>
                                     <td>Soltani</td>
@@ -93,6 +98,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="card-footer">
+                {{ __('Info suplémentaire') }}
                 </div>
             </div>
         </div>

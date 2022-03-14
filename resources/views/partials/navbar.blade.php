@@ -13,7 +13,7 @@
                 <a class="nav-link" href="/">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Rajouter un demandeur</a>
+                <a class="nav-link" href="#">Ajouter un demandeur</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Importer les données</a>
