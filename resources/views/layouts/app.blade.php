@@ -6,26 +6,22 @@
     <title>GIEP-NC</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer=""></script>
+    <script src="{{ asset('js/hommePage.js') }}"></script> 
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  
     <!-- Ico -->
     <link rel="shortcut icon" href="{{ asset('images/giep-nc.ico') }}">
-    <!-- Styles -->
+    <!-- Styles -->  
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">  
-    <link href="{{ asset('css/impression.css') }}" rel="stylesheet" media="print">  
-    <script src="{{ asset('js/hommePage.js') }}"></script>
+    <link href="{{ asset('css/impression.css') }}" rel="stylesheet" media="print">      
     <style>
         html {
             overflow: scroll;
             overflow-x: hidden;
         }
-        ::-webkit-scrollbar {
-            width: 0px;  /* Remove scrollbar space */
-            background: transparent;  /* Optional: just make scrollbar invisible */
-        }
-        /* Optional: show position indicator in red */
-        ::-webkit-scrollbar-thumb {
-            background: #FF0000;
-        }
+        
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
