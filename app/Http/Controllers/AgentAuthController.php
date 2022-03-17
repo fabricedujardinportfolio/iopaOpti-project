@@ -75,6 +75,41 @@ class AgentAuthController extends Controller
         }
         return view('home', compact('agent','dateNow', 'deDateNow'), $data);
     }
+    public function read(Request $request)
+    {
+        if (session()->has('LoggedUser')) {
+            try {
+                $agent = Agent::where("id", "=", session('LoggedUser'))->first();
+                // $autorisationAgent = Agent::select('role_ressource')->where('id', '=', $agent->id)->get();
+                $data = [
+                    "LoggedUserInfo" => $agent,
+                    // "LoggedUserAuth" => $autorisationAgent,
+                ];  
+                
+                return view('addCandidate', compact('agent',), $data);
+            } catch (QueryException $exception) {
+                return view('auth.login');
+            }
+        }
+    }
+    public function add(Request $request)
+    {
+        
+        if (session()->has('LoggedUser')) {
+            try {
+                $agent = Agent::where("id", "=", session('LoggedUser'))->first();
+                // $autorisationAgent = Agent::select('role_ressource')->where('id', '=', $agent->id)->get();
+                $data = [
+                    "LoggedUserInfo" => $agent,
+                    // "LoggedUserAuth" => $autorisationAgent,
+                ]; 
+                dd($request);
+                return view('addCandidate', compact('agent',), $data);
+            } catch (QueryException $exception) {
+                return view('auth.login');
+            }
+        }
+    }
     public function logout()
     {
         if (session()->has('LoggedUser')) {

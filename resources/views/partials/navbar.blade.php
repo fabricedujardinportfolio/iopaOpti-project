@@ -13,10 +13,10 @@
                 <a class="nav-link" href="/">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Ajouter un demandeur</a>
+                <a class="nav-link" href="{{route('readaddCandidate')}}">Ajouter un individu</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Importer les données</a>
+                <a class="nav-link" href="#">Exporter les donnes</a>
             </li>
             <li class=" text-right">
                 <a class="nav-link " href="#" onclick="myFunction()">Changer de mot de passe</a>

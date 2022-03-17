@@ -1,0 +1,11 @@
+/* page de création d'une fiche candidat */
+
+.statusCenter{
+    align-self: center !important;
+}
+.alignementlabelStatu{
+    vertical-align: -webkit-baseline-middle;
+}
+.autreInformationCandidat {
+    align-self: self-end;
+}

@@ -25,4 +25,6 @@ Route::get('logout',[AgentAuthController::class,"logout"])->name('logout');
 Route::post('check',[AgentAuthController::class,"check"])->name('auth.check');
 
 // Route tout role
-Route::get('/', [AgentAuthController::class,"home"])->name("accueil")->middleware('isLogged');
+Route::get('/', [AgentAuthController::class,"profilereservation"])->name("accueil")->middleware('isLogged');
+Route::get('/addCandidate', [AgentAuthController::class,"read"])->name("readaddCandidate")->middleware('isLogged');
+Route::post('/addCandidate',[AgentAuthController::class,"add"])->name("addPost")->middleware('isLogged');
