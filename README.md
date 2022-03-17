@@ -22,7 +22,7 @@ Application permettant ainsi d'optimiser le travail des conseillères dans le se
 
 ## Vulnérabilités de sécurité
 
-Si vous découvrez une faille de sécurité dans Laravel, veuillez envoyer un e-mail à Fabrice dujardin via [fabrice.dujardin@giep.nc](mailto:fabrice.dujardin@giep.nc). Toutes les failles de sécurité seront rapidement corrigées.
+Si vous découvrez une faille de sécurité dans application, veuillez envoyer un e-mail à Fabrice dujardin via [fabrice.dujardin@giep.nc](mailto:fabrice.dujardin@giep.nc). Toutes les failles de sécurité seront rapidement corrigées.
 
 ## License
 
