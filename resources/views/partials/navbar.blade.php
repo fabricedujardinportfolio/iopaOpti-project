@@ -10,7 +10,7 @@
     <div class="text-center col-12">
         <ul class="navbar-nav col-8 m-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Accueil</a>
+                <a class="nav-link" href="{{route('accueil')}}">Accueil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('readaddCandidate')}}">Ajouter un individu</a>
