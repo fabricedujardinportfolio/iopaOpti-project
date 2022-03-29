@@ -32,11 +32,13 @@ class CreateReservationController extends Controller
         //Sinon crée une liuste en fonction de la requête envoyer .
         if ($dataCount === 0) {
             # code...
-            $output = 'Aucune donnée';
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+                $output .= '<li>Aucune donnée trouver ,rajouter un <a href="#"><span>Individu</span></a></li>';
+            $output .= '</ul>';
         } else {
             $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
             foreach ($dataI  as $row) {
-                $output .= '<li><a href="#"  onclick="set_idagents(' . $row->iopa_individu_id . ');"><span>' . $row->name_individu . '</span></a></li>';
+                $output .= '<li><a href="#"  onclick="set_idindividu(' . $row->iopa_individu_id . ');"><span>' . $row->name_individu . '</span></a></li>';
             }
             $output .= '</ul>';
         }

@@ -141,7 +141,7 @@ $(document).ready(function () {
     });
 });
 
-function set_idagents(item) {
+function set_idindividu(item) {
     console.log(item);
     $('#idagents').val(item);
     $(".dateStart").show();
