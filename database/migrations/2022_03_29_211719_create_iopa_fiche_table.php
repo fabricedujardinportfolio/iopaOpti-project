@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateIopaFicheTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('iopa_fiche', function (Blueprint $table) {
+            $table->integer('iopa_fiche_id', true);
+            $table->integer('iopa_individu_id')->index('iopa_individu_id');
+            $table->integer('agent_id')->index('agent_id');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('iopa_fiche');
     }
-};
+}

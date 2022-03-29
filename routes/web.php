@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentAuthController;
+use App\Http\Controllers\CreateReservationController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,7 @@ Route::post('check',[AgentAuthController::class,"check"])->name('auth.check');
 Route::get('/', [AgentAuthController::class,"home"])->name("accueil")->middleware('isLogged');
 Route::get('/addCandidate', [AgentAuthController::class,"read"])->name("readaddCandidate")->middleware('isLogged');
 Route::post('/addCandidate',[AgentAuthController::class,"add"])->name("addPost")->middleware('isLogged');
+
+// AJAX
+
+Route::post('/autocomplete',[CreateReservationController::class,"autocomplete"])->name("searchAjaxautocomplete")->middleware('isLogged');

@@ -4,6 +4,3 @@ $(document).ready(function () {
     });
 })
 "use strict";
-$('.date').datepicker({
-    format: 'mm-dd-yyyy'
-});

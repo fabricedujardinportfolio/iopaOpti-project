@@ -26,6 +26,7 @@ class CreateAgentsTable extends Migration
             $table->tinyInteger('role_absence')->default(0);
             $table->tinyInteger('role_bddagents')->default(0);
             $table->tinyInteger('role_numVert')->default(0);
+            $table->tinyInteger('role_allMdpChange')->default(0);
         });
     }
 

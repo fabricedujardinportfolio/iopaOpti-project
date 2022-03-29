@@ -15,7 +15,7 @@ class CreateCsvTable extends Migration
     {
         Schema::create('csv', function (Blueprint $table) {
             $table->text('nom');
-            $table->string('matricule');
+            $table->string('matricule', 256);
             $table->string('bs', 256);
             $table->string('qr', 256);
             $table->string('date_entree', 256);

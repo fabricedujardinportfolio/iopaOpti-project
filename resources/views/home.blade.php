@@ -21,11 +21,13 @@
                         {{ __('Tu es connectée!') }}
                     </div>
                     <form class="navbar-search m-auto mb-2">
+                        @csrf
                         <div class="input-append">
-                            <input type="text" class="search-query span2 w-100" placeholder="Rechercher un demandeur"><span class="fornav"><i class="icon-search"></i></span>
+                            <input type="text" class="search-query span2 w-100" placeholder="Rechercher un individu" id="typeahead"><span class="fornav"><i class="icon-search"></i></span>
+                            <div id="individu"></div>
                         </div>
                     </form>
-                    <div class="table-responsive">
+                    {{-- <div class="table-responsive">
                         <table class="table table-striped table-bordered ">
                             <thead>
                                 <tr>
@@ -97,7 +99,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-footer">
                 {{ __('Info suplémentaire') }}
@@ -106,4 +108,45 @@
         </div>
     </div>
 </div>
+<script>
+    
+$(document).ready(function () {
+    $('#typeahead').keyup(function () {
+        var query = $(this).val();
+        queryVar = query.length;
+        console.log(query);
+        console.log(queryVar);
+        if (queryVar === 0) {
+                $('#ressourceDispot').fadeIn();
+                $('#individu').html("aucune données");
+        }else {
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('searchAjaxautocomplete') }}",
+                method: "POST",
+                data: {
+                    query: query,
+                    _token: _token
+                },
+                success: function (data) {
+                    $('#individu').fadeIn();
+                    $('#individu').html(data);
+                }
+            });
+        }
+    });
+    $(document).on('click', 'li>a>span', function () {
+        $('#typeahead').val($(this).text());
+        $('#individu').fadeOut();
+    });
+});
+
+function set_idagents(item) {
+    console.log(item);
+    $('#idagents').val(item);
+    $(".dateStart").show();
+    $('#idagents').val(item);
+    $("#typeahead").prop("disabled", true);
+}
+</script>
 @endsection
