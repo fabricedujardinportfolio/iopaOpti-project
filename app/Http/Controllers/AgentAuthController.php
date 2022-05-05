@@ -77,6 +77,8 @@ class AgentAuthController extends Controller
     }
     public function read(Request $request)
     {
+        $nameCandidate =0;
+        // dd($nameCandidate);
         if (session()->has('LoggedUser')) {
             try {
                 $agent = Agent::where("id", "=", session('LoggedUser'))->first();
@@ -86,7 +88,7 @@ class AgentAuthController extends Controller
                     // "LoggedUserAuth" => $autorisationAgent,
                 ];  
                 
-                return view('addCandidate', compact('agent',), $data);
+                return view('addCandidate', compact('agent','nameCandidate'), $data);
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
@@ -94,7 +96,8 @@ class AgentAuthController extends Controller
     }
     public function add(Request $request)
     {
-        
+        // $nameCandidate =0;
+        // dd($nameCandidate);
         if (session()->has('LoggedUser')) {
             try {
                 $agent = Agent::where("id", "=", session('LoggedUser'))->first();
@@ -103,8 +106,25 @@ class AgentAuthController extends Controller
                     "LoggedUserInfo" => $agent,
                     // "LoggedUserAuth" => $autorisationAgent,
                 ]; 
-                dd($request);
-                return view('addCandidate', compact('agent',), $data);
+                return view('addCandidate', compact('agent','nameCandidate'), $data);
+            } catch (QueryException $exception) {
+                return view('auth.login');
+            }
+        }
+    }
+    
+    public function addCandidate($nameCandidate)
+    {
+        // dd($nameCandidate);
+        if (session()->has('LoggedUser')) {
+            try {
+                $agent = Agent::where("id", "=", session('LoggedUser'))->first();
+                // $autorisationAgent = Agent::select('role_ressource')->where('id', '=', $agent->id)->get();
+                $data = [
+                    "LoggedUserInfo" => $agent,
+                    // "LoggedUserAuth" => $autorisationAgent,
+                ]; 
+                return view('addCandidate', compact('agent','nameCandidate'), $data);
             } catch (QueryException $exception) {
                 return view('auth.login');
             }

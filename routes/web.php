@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentAuthController;
 use App\Http\Controllers\CreateReservationController;
+use App\Http\Controllers\FicheController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,15 @@ Route::get('/', [AgentAuthController::class,"home"])->name("accueil")->middlewar
 Route::get('/addCandidate', [AgentAuthController::class,"read"])->name("readaddCandidate")->middleware('isLogged');
 Route::post('/addCandidate',[AgentAuthController::class,"add"])->name("addPost")->middleware('isLogged');
 
+Route::get('/addCandidate/{name_individu}', [AgentAuthController::class,"addCandidate"])->name("addCandidate")->middleware('isLogged');
+
+Route::resource('fiche',FicheController::class)->except('index');
+
+Route::get('fiche/{id}', [FicheController::class,"show"])->name("showFiche")->middleware('isLogged');
+Route::get('fiche/ficheCandidate/{id}', [FicheController::class,"addFicheCandidat"])->name("addFicheCandidat")->middleware('isLogged');
+
+
+// Route::get('/dashboard/{id}', [listingStudentController::class, 'showTable'])->name('dashboard-formation');
 // AJAX
 
 Route::post('/autocomplete',[CreateReservationController::class,"autocomplete"])->name("searchAjaxautocomplete")->middleware('isLogged');

@@ -14,8 +14,7 @@
     <link rel="shortcut icon" href="{{ asset('images/giep-nc.ico') }}">
     <!-- Styles -->  
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">  
-    <link href="{{ asset('css/impression.css') }}" rel="stylesheet" media="print">      
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">    
     <style>
         html {
             overflow: scroll;

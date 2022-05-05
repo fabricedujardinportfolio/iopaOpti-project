@@ -57,12 +57,6 @@
         </div>
         @endif
         <div>
-            <strong>{{$agent->email}}</strong>
-        </div>
-        <div>
-            <strong></strong>
-        </div>
-        <div>
             <strong><a href="/logout">Déconnexion</a></strong>
         </div>
         </a>

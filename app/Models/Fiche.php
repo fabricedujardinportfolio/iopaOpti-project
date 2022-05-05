@@ -19,10 +19,10 @@ class Fiche extends Model
     public function agentsId()
     {
         # code...
-        return $this->hasMany(Agent::class);
+        return $this->belongsTo(Agent::class);
     }
     public function individuId()
     {
-        return $this->hasMany(Individu::class);
+        return $this->belongsTo(Individu::class);
     }
 }

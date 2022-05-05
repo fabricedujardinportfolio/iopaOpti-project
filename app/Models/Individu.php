@@ -13,6 +13,14 @@ class Individu extends Model
 
     protected $fillable = [
         'iopa_individu_id',
-        'name_individu'
+        'name_individu',
+        'lastName_individu',
+        'maidenName_individu',
+        'nationality_individu',
+        'sexe_individu',
+        'dateofBirth_individu',
+        'regionBirth_individu',
+        'age_individu',
+        'familyStatus_individu'
     ];
 }
