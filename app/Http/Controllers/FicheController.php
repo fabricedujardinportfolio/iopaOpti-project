@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Carbon;
 use App\Models\Agent;
 use App\Models\Fiche;
 use App\Models\FicheTypePaio;
+use App\Models\FicheTypeSpip;
+use App\Models\FicheTypeSpot;
 use App\Models\FicheTypeVae;
-use App\Models\FichierPaio;
 use App\Models\Individu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -76,10 +76,17 @@ class FicheController extends Controller
                 //Fiche Master
                 try {
                     $fiche = Fiche::where('iopa_fiche_id', '=', $id)->first();
-                    if ("$fiche->iopa_fiche_id" !== $id) {
+                    if ($fiche === null) {
+                        // Si la variable fiche egal null alors la variable egale erreur
+                        $fiche = "erreur";
+                    }
+                    if ($fiche === "erreur") {
+                        // fiche call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche demandé dans le navigateur n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } elseif ("$fiche->iopa_fiche_id" !== $id) {
                         // fiche call in URL doesn't exist
-                        // dd($fiche);
-                        $ficheindividuNotExiste = "la fiche demander dans le navigateur n'existe pas";
+                        $ficheindividuNotExiste = "la fiche demandé dans le navigateur n'est plus la même";
                         return view('404.404', compact('ficheindividuNotExiste'));
                     }
                 } catch (QueryException $exception) {
@@ -90,7 +97,15 @@ class FicheController extends Controller
                 try {
                     $fichePaios = FicheTypePaio::select('*')->where('iopa_fiche_id', '=', $id)->get();
                     // dd($fichePaios);
-                    if ($fichePaios->count() == 0) {
+                    if ($fichePaios === null) {
+                        // Si la variable fichePaios egal null alors la variable egale erreur
+                        $fichePaios = "erreur";
+                    }
+                    if ($fichePaios === "erreur") {
+                        // fichePaios call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche paio demandé à une erreur";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($fichePaios->count() == 0) {
                         $fichePaios = "Aucune fiche Paio";
                     } else {
                         $fichePaios;
@@ -102,7 +117,16 @@ class FicheController extends Controller
                 // Fiche VAE
                 try {
                     $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2);
-                    if ($ficheVaes->count() == 0) {
+                    // dd($ficheVaes);
+                    if ($ficheVaes === null) {
+                        // Si la variable ficheVaes egal null alors la variable egale erreur
+                        $ficheVaes = "erreur";
+                    }
+                    if ($ficheVaes === "erreur") {
+                        // ficheVaes call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche vae demandé à une erreur";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($ficheVaes->count() == 0) {
                         $ficheVaes = "Aucune fiche Vae";
                     } else {
                         $ficheVaes;
@@ -111,22 +135,71 @@ class FicheController extends Controller
                     dd($exception->getMessage());
                 }
                 // Fiche spip
+                try {
+                    $ficheSpips = FicheTypeSpip::select('*')->where('iopa_fiche_id', '=', $id)->get();
+                    // dd($ficheSpips);
+                    if ($ficheSpips === null) {
+                        // Si la variable ficheSpips egal null alors la variable egale erreur
+                        $ficheSpips = "erreur";
+                    }
+                    if ($ficheSpips === "erreur") {
+                        // ficheSpips call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche spip demandé à une erreur";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($ficheSpips->count() == 0) {
+                        $ficheSpips = "Aucune fiche Spip";
+                    } else {
+                        $ficheSpips;
+                    }
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
                 // Fiche spot
+                try {
+                    $ficheSpots = FicheTypeSpot::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2);
+                    
+                    if ($ficheSpots === null) {
+                        // Si la variable ficheSpots egal null alors la variable egale erreur
+                        $ficheSpots = "erreur";
+                    }
+                    if ($ficheSpots === "erreur") {
+                        // ficheSpots call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche spot demandé à une erreur";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($ficheSpots->count() == 0) {
+                        $ficheSpots = "Aucune fiche Spot";
+                    } else {
+                        $ficheSpots;
+                    }
+                    // dd($ficheSpots);
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
                 // Fiche atelier
 
                 //ID de l'individu par rapport à ID de la fiche
                 try {
                     $individu = Individu::where('iopa_individu_id', '=', $fiche->first()->iopa_individu_id)->first();
                     // dd($individu);
-                    if ($fiche->first()->iopa_individu_id !== $individu->first()->iopa_individu_id) {
+                    if ($individu === null) {
+                        // Si la variable individu egal null alors la variable egale erreur
+                        $individu = "erreur";
+                    }
+                    if ($individu === "erreur") {
+                        // individu call in URL doesn't exist   
+                        $ficheindividuNotExiste = "l'individu demandé n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($fiche->first()->iopa_individu_id !== $individu->first()->iopa_individu_id) {
                         // fiche de l'utilisateur doesn't exist
                         $ficheindividuNotExiste = "la fiche de l'utilisateur n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
+                    }else {
+                        $individu;
                     }
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
-                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes'));
+                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots'));
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
