@@ -9,6 +9,8 @@
         </div>
         <div class="col-md-12">
             <div class="container rounded bg-white mt-5 mb-5">
+                <form action="{{ route('addPost')}}" method="post" id="form">
+                    @csrf
                 <div class="row">
                     <div class="col-md-3 border-right">
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
@@ -32,14 +34,14 @@
                                 @if($nameCandidate === 0)
                                 <div class="col-md-6"><label class="labels">Prénom</label><input type="text"
                                     class="form-control" placeholder="first name"
-                                    value=""></div>
+                                    value="" name="name_individu"></div>
                                  @else
                                  <div class="col-md-6"><label class="labels">Prénom</label><input type="text"
                                     class="form-control" placeholder="first name"
-                                    value="{{ $nameCandidate }}"></div>
+                                    value="{{ $nameCandidate }}" name="name_individu"></div>
                                  @endif                                
                                 <div class="col-md-6"><label class="labels">Nom de famille</label><input
-                                        type="text" class="form-control" value="" placeholder="nomDeFamille"></div>
+                                        type="text" class="form-control" value="" placeholder="nomDeFamille" name="lastName_individu"></div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-12"><label class="labels">Numéro de portable</label><input
@@ -65,7 +67,7 @@
                                         placeholder="entrer un identifiant de messagerie" value=""></div>
                             </div>
                             <div class="mt-5 text-center">
-                                <button class="btn btn-primary profile-button" type="button">
+                                <button class="btn btn-primary profile-button" type="submit">
                                     Enregistrer le profil</button>
                             </div>
                         </div>
@@ -73,6 +75,7 @@
                         <div class="col-md-1"></div>                        
                     </div>
                 </div>
+            </form>
             </div>
         </div>
     </div>

@@ -6,6 +6,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Agent;
 use App\Models\AgentsHasApplication;
+use App\Models\Fiche;
+use App\Models\Individu;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -96,21 +98,27 @@ class AgentAuthController extends Controller
     }
     public function add(Request $request)
     {
-        // $nameCandidate =0;
-        // dd($nameCandidate);
+        $individu = new Individu;
+        $fiche = new Fiche;
         if (session()->has('LoggedUser')) {
             try {
                 $agent = Agent::where("id", "=", session('LoggedUser'))->first();
-                // $autorisationAgent = Agent::select('role_ressource')->where('id', '=', $agent->id)->get();
                 $data = [
                     "LoggedUserInfo" => $agent,
-                    // "LoggedUserAuth" => $autorisationAgent,
-                ]; 
-                return view('addCandidate', compact('agent','nameCandidate'), $data);
+                ];
             } catch (QueryException $exception) {
-                return view('auth.login');
+                dd($exception->getMessage());
             }
         }
+        $individu->name_individu = $request->name_individu;
+        $individu->lastName_individu = $request->lastName_individu;
+        $individu->save();
+        $instanceIndividu = Individu::where('name_individu','=',$request->name_individu);
+        $fiche->iopa_individu_id = $instanceIndividu->first()->iopa_individu_id;
+        $fiche->agent_id = $agent->id;
+        $fiche->save();
+        return redirect()->route('showFiche', ['id' => $fiche->iopa_individu_id]);
+        // dd($fiche);
     }
     
     public function addCandidate($nameCandidate)

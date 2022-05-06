@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Fiche extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = "iopa_fiche";
-
     protected $fillable = [
         'iopa_fiche_id',
         'iopa_individu_id',

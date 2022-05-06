@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Individu extends Model
 {
     use HasFactory;
-    
+    public $timestamps = false;
     protected $table = "iopa_individu";
-
     protected $fillable = [
         'iopa_individu_id',
         'name_individu',

@@ -76,7 +76,8 @@ class FicheController extends Controller
 
                 //Fiche Master
                 try {
-                    $fiche = Fiche::where('iopa_fiche_id', '=', $id)->first();
+                    $fiche = Fiche::where('iopa_individu_id', '=', $id)->first();
+                    // dd($fiche);
                     if ($fiche === null) {
                         // Si la variable fiche egal null alors la variable egale erreur
                         $fiche = "erreur";
@@ -85,7 +86,7 @@ class FicheController extends Controller
                         // fiche call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche demandé dans le navigateur n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    } elseif ("$fiche->iopa_fiche_id" !== $id) {
+                    } elseif ("$fiche->iopa_individu_id" !== $id) {
                         // fiche call in URL doesn't exist
                         $ficheindividuNotExiste = "la fiche demandé dans le navigateur n'est plus la même";
                         return view('404.404', compact('ficheindividuNotExiste'));
@@ -96,7 +97,7 @@ class FicheController extends Controller
 
                 //Fiche PAIO
                 try {
-                    $fichePaios = FicheTypePaio::select('*')->where('iopa_fiche_id', '=', $id)->get();
+                    $fichePaios = FicheTypePaio::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->get();
                     // dd($fichePaios);
                     if ($fichePaios === null) {
                         // Si la variable fichePaios egal null alors la variable egale erreur
@@ -118,7 +119,7 @@ class FicheController extends Controller
                 // Fiche VAE
                 try {
                     
-                    $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageVae");
+                    $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->paginate(2, ["*"], "pageVae");
                     if ($ficheVaes === null) {
                         // Si la variable ficheVaes egal null alors la variable egale erreur
                         $ficheVaes = "erreur";
@@ -137,7 +138,7 @@ class FicheController extends Controller
                 }
                 // Fiche spip
                 try {
-                    $ficheSpips = FicheTypeSpip::select('*')->where('iopa_fiche_id', '=', $id)->get();
+                    $ficheSpips = FicheTypeSpip::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->get();
                     // dd($ficheSpips);
                     if ($ficheSpips === null) {
                         // Si la variable ficheSpips egal null alors la variable egale erreur
@@ -157,7 +158,7 @@ class FicheController extends Controller
                 }
                 // Fiche spot
                 try {
-                    $ficheSpots = FicheTypeSpot::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageSpot");
+                    $ficheSpots = FicheTypeSpot::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->paginate(2, ["*"], "pageSpot");
                     // $ficheSpots->setPageName('pageSpot');                 
                     if ($ficheSpots === null) {
                         // Si la variable ficheSpots egal null alors la variable egale erreur
@@ -177,7 +178,7 @@ class FicheController extends Controller
                 }
                 // Fiche atelier
                 try {
-                    $ficheAteliers = FicheTypeAtelier::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageAtelier");
+                    $ficheAteliers = FicheTypeAtelier::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->paginate(2, ["*"], "pageAtelier");
                     // $ficheSpots->setPageName('pageSpot');                 
                     if ($ficheAteliers === null) {
                         // Si la variable ficheSpots egal null alors la variable egale erreur
@@ -198,7 +199,7 @@ class FicheController extends Controller
 
                 //ID de l'individu par rapport à ID de la fiche
                 try {
-                    $individu = Individu::where('iopa_individu_id', '=', $fiche->first()->iopa_individu_id)->first();
+                    $individu = Individu::where('iopa_individu_id', '=', $fiche->iopa_individu_id)->get();
                     // dd($individu);
                     if ($individu === null) {
                         // Si la variable individu egal null alors la variable egale erreur
@@ -208,7 +209,7 @@ class FicheController extends Controller
                         // individu call in URL doesn't exist   
                         $ficheindividuNotExiste = "l'individu demandé n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($fiche->first()->iopa_individu_id !== $individu->first()->iopa_individu_id) {
+                    }elseif ($fiche->iopa_individu_id !== $individu->first()->iopa_individu_id) {
                         // fiche de l'utilisateur doesn't exist
                         $ficheindividuNotExiste = "la fiche de l'utilisateur n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
