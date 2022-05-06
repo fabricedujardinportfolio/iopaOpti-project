@@ -129,10 +129,12 @@
 
                                 <section>
                                     <div class="container py-3">
-                                        <span style="text-decoration-line: underline;">Fiche type : Paio</span>
+                                        <div class="p-2">
+                                            <span style="text-decoration-line: underline; background-color: #94c123; color:white;" class="p-2" id="ficheVae">Fiche type : Paio</span>
+                                        </div>
                                         @if ($fichePaios !== 'Aucune fiche Paio')
                                             @foreach ($fichePaios as $fichePaio)
-                                                <div class="card my-2">
+                                                <div class="card my-2" style="background-color: #c5d994;">
                                                     <div class="row ">
                                                         <div class="col-md-12 px-3 py-2">
                                                             <div class="card-block px-3">
@@ -156,12 +158,15 @@
                                                 </div>
                                             @endforeach
                                         @else
-                                            <p colspan="9" class="table-active text-center">{{ $fichePaios }}</p>
+                                            <p colspan="9" class="table-active text-center p-2 mt-2" style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $fichePaios }}</p>
                                         @endif
-                                        <span style="text-decoration-line: underline;">Fiche type : Vae</span>
+                                        <hr class="dropdown-divider">
+                                        <div class="p-2">
+                                            <span style="text-decoration-line: underline; background-color: #6aa1db; color:white;" class="p-2" id="ficheVae">Fiche type : Vae</span>
+                                        </div>
                                         @if ($ficheVaes !== 'Aucune fiche Vae')
                                             @foreach ($ficheVaes as $ficheVae)
-                                                <div class="card my-2">
+                                                <div class="card my-2" style="background-color: #b7d6f8;">
                                                     <div class="row ">
                                                         <div class="col-md-12 px-3 py-2">
                                                             <div class="card-block px-3">
@@ -187,16 +192,49 @@
                                             @endforeach
                                             {{ $ficheVaes->links() }}
                                         @else
-                                            <p colspan="9" class="table-active text-center">{{ $ficheVaes }}</p>
+                                            <p colspan="9" class="table-active text-center p-2 mt-2" style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $ficheVaes }}</p>
                                         @endif
-                                        <span style="text-decoration-line: underline;">Fiche type : Atelier</span>
-                                        <p colspan="9" class="table-active text-center"
-                                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                            Aucune fiche Atelier</p>
-                                        <span style="text-decoration-line: underline;">Fiche type : Spot</span>
+                                        <hr class="dropdown-divider">
+                                        <div class="p-2">
+                                            <span style="text-decoration-line: underline; background-color: #f7ab59; color:white;" class="p-2 mt-2" id="ficheSpot">Fiche type : Atelier</span>
+                                        </div> 
+                                        @if ($ficheAteliers !== "Aucune fiche Atelier")
+                                            @foreach ($ficheAteliers as $ficheAtelier)
+                                                <div class="card my-2" style="background-color: #e3b482;">
+                                                    <div class="row ">
+                                                        <div class="col-md-12 px-3 py-2">
+                                                            <div class="card-block px-3">
+                                                                <h4 class="card-title">
+                                                                    {{ $ficheAtelier->iopa_fiche_type_atelier_title }}</h4>
+                                                                <p class="card-text">Consectetur adipiscing elit, sed
+                                                                    do eiusmod tempor incididunt ut labore et dolore magna
+                                                                    aliqua. Ut enim ad minim veniam, quis nostrud
+                                                                    exercitation ullamco laboris nisi ut aliquip ex ea
+                                                                    commodo consequat. </p>
+                                                                <p class="card-text">Duis aute irure dolor in
+                                                                    reprehenderit in voluptate velit esse cillum dolore eu
+                                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                                    non proident, sunt in culpa qui officia deserunt mollit
+                                                                    anim id est laborum.</p>
+                                                                <a href="{{ $ficheAtelier->iopa_fiche_type_atelier_id }}"
+                                                                    class="btn btn-primary">Lire la fiche</a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @endforeach                                            
+                                        {{ $ficheAteliers->links() }}
+                                        @else
+                                            <p colspan="9" class="table-active text-center p-2 mt-2" style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $ficheAteliers }}</p>
+                                        @endif 
+                                        <hr class="dropdown-divider">
+                                        <div class="p-2">
+                                            <span style="text-decoration-line: underline; background-color: #b12036; color:white;" class="p-2 mt-2" id="ficheSpot">Fiche type : Spot</span>
+                                        </div>
                                         @if ($ficheSpots !== "Aucune fiche Spot")
                                             @foreach ($ficheSpots as $ficheSpot)
-                                                <div class="card my-2">
+                                                <div class="card my-2" style="background-color: #d47584;">
                                                     <div class="row ">
                                                         <div class="col-md-12 px-3 py-2">
                                                             <div class="card-block px-3">
@@ -222,12 +260,15 @@
                                             @endforeach                                            
                                         {{ $ficheSpots->links() }}
                                         @else
-                                            <p colspan="9" class="table-active text-center" style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $ficheSpots }}</p>
-                                        @endif
-                                        <span style="text-decoration-line: underline;">Fiche type : Spip</span>
+                                            <p colspan="9" class="table-active text-center p-2 mt-2" style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $ficheSpots }}</p>
+                                        @endif  
+                                        <hr class="dropdown-divider">                                      
+                                        <div class="p-2">
+                                            <span style="text-decoration-line: underline; background-color: #6ec6d9; color:white;" class="p-2 mt-2" id="ficheSpot">Fiche type : Spip</span>
+                                        </div>
                                         @if ($ficheSpips !== 'Aucune fiche Spip')
                                             @foreach ($ficheSpips as $ficheSpip)
-                                                <div class="card my-2">
+                                                <div class="card my-2" style="background-color: #a3d3de;">
                                                     <div class="row ">
                                                         <div class="col-md-12 px-3 py-2">
                                                             <div class="card-block px-3">
@@ -251,9 +292,7 @@
                                                 </div>
                                             @endforeach
                                         @else
-                                            <p colspan="9" class="table-active text-center"
-                                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                                {{ $ficheSpips }}</p>
+                                            <p colspan="9" class="table-active text-center p-2 mt-2"style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">{{ $ficheSpips }}</p>
                                         @endif
                                     </div>
                             </div>

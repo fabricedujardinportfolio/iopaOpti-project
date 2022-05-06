@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agent;
 use App\Models\Fiche;
+use App\Models\FicheTypeAtelier;
 use App\Models\FicheTypePaio;
 use App\Models\FicheTypeSpip;
 use App\Models\FicheTypeSpot;
@@ -116,8 +117,8 @@ class FicheController extends Controller
 
                 // Fiche VAE
                 try {
-                    $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2);
-                    // dd($ficheVaes);
+                    
+                    $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageVae");
                     if ($ficheVaes === null) {
                         // Si la variable ficheVaes egal null alors la variable egale erreur
                         $ficheVaes = "erreur";
@@ -156,8 +157,8 @@ class FicheController extends Controller
                 }
                 // Fiche spot
                 try {
-                    $ficheSpots = FicheTypeSpot::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2);
-                    
+                    $ficheSpots = FicheTypeSpot::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageSpot");
+                    // $ficheSpots->setPageName('pageSpot');                 
                     if ($ficheSpots === null) {
                         // Si la variable ficheSpots egal null alors la variable egale erreur
                         $ficheSpots = "erreur";
@@ -171,11 +172,29 @@ class FicheController extends Controller
                     } else {
                         $ficheSpots;
                     }
-                    // dd($ficheSpots);
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
                 // Fiche atelier
+                try {
+                    $ficheAteliers = FicheTypeAtelier::select('*')->where('iopa_fiche_id', '=', $id)->paginate(2, ["*"], "pageAtelier");
+                    // $ficheSpots->setPageName('pageSpot');                 
+                    if ($ficheAteliers === null) {
+                        // Si la variable ficheSpots egal null alors la variable egale erreur
+                        $ficheAteliers = "erreur";
+                    }
+                    if ($ficheAteliers === "erreur") {
+                        // ficheAteliers call in URL doesn't exist   
+                        $ficheindividuNotExiste = "la fiche spot demandé à une erreur";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    }elseif ($ficheAteliers->count() == 0) {
+                        $ficheAteliers = "Aucune fiche Atelier";
+                    } else {
+                        $ficheAteliers;
+                    }
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
 
                 //ID de l'individu par rapport à ID de la fiche
                 try {
@@ -199,7 +218,7 @@ class FicheController extends Controller
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
-                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots'));
+                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers'));
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
