@@ -21,12 +21,13 @@ class CreateReservationController extends Controller
         }
         # AJAX CODE AUTOCOMPLET AGENTS
         //Récupération de tout les agents disponible en fonction de la requête passer en ajax 
-        $dataI = Individu::select('name_individu','iopa_individu_id')
+        $dataI = Individu::select('name_individu','iopa_individu_id','dateofBirth_individu','lastName_individu')
             ->where(function ($query) use ($request) {
-                $query->where("name_individu", "LIKE", "%{$request->get('query')}%");
+                $query->where("name_individu", "LIKE", "%{$request->get('query')}%")->orwhere('dateofBirth_individu', "LIKE", "%{$request->get('query')}%")->orwhere('lastName_individu', "LIKE", "%{$request->get('query')}%");
             })
             ->get();
         //Création d'un count de la requêt pour utiliser sur la valeur 0
+        // dd($dataI);
         $dataCount = $dataI->count();
         //Si la requêt contient un tableau vide alors renvoie la chaine de caractére  "Aucune donnée"
         //Sinon crée une liuste en fonction de la requête envoyer .
@@ -38,7 +39,7 @@ class CreateReservationController extends Controller
         } else {
             $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
             foreach ($dataI  as $row) {
-                $output .= '<li><a href="fiche/'.$row->iopa_individu_id.'"  onclick="set_idindividu(' . $row->iopa_individu_id . ');"><span>' . $row->name_individu . '</span></a></li>';
+                $output .= '<li><a style="text-decoration:none;" href="fiche/'.$row->iopa_individu_id.'"  onclick="set_idindividu(' . $row->iopa_individu_id . ');"><span class="text-capitalize">' . $row->name_individu .' </span><span class="text-uppercase">'. $row->lastName_individu .'</span><span> née le : '. $row->dateofBirth_individu .'</span></a></li>';
             }
             $output .= '</ul>';
         }
