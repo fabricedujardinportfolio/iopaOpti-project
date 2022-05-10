@@ -10,6 +10,7 @@ use App\Models\FicheTypeSpip;
 use App\Models\FicheTypeSpot;
 use App\Models\FicheTypeVae;
 use App\Models\Individu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -219,7 +220,17 @@ class FicheController extends Controller
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
-                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers'));
+                // dd($individu->first()->dateofBirth_individu);
+                if ($individu->first()->dateofBirth_individu !==  "non-définie") {                    
+                    $parseCarbone = Carbon::parse($individu->first()->dateofBirth_individu);
+                    // dd($parseCarbone->age);
+                    // dd($this->dateofBirth_individu->age);
+                    $parseCarboneSolo = $parseCarbone->age; 
+                }else {
+                    $parseCarboneSolo =  "Définir la date de naissance";
+                }
+                // dd($parseCarbone);
+                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers','parseCarboneSolo'));
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
@@ -264,6 +275,26 @@ class FicheController extends Controller
             }
         }
         return view('fiche.ficheSuiviCandidat',  compact('fiche', 'agent', 'individu'));
+    }
+    public function updateIndividu(Request $request,$id)
+    {
+        // dd();
+        $name_individu = $request->input('name_individu');
+        $lastName_individu = $request->input('lastName_individu');
+        $portable_individu = $request->input('portable_individu');
+        $dateofBirth_individu = $request->input('dateofBirth_individu');
+        $adresse_individu = $request->input('adresse_individu');
+        $deuxiemeAdresse_individu = $request->input('deuxiemeAdresse_individu');
+
+        Individu::where('iopa_individu_id',$id)->update(
+            ['name_individu'=>$name_individu,
+            'lastName_individu'=>$lastName_individu,
+            'portable_individu'=>$portable_individu,
+            'dateofBirth_individu'=>$dateofBirth_individu,
+            'adresse_individu'=>$adresse_individu,
+            'deuxiemeAdresse_individu'=>$deuxiemeAdresse_individu
+        ]);
+        return back();
     }
     /**
      * Show the form for editing the specified resource.

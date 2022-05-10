@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand m-auto" href="#">
         <img src="{{ asset('images/Puce-i-Information-Orientation.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-        OPA PROJECT
+        OEPA PROJECT
     </a>
     <div class="text-center col-12">
         <ul class="navbar-nav col-8 m-auto">

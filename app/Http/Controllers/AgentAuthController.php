@@ -80,6 +80,7 @@ class AgentAuthController extends Controller
     public function read(Request $request)
     {
         $nameCandidate =0;
+        $emailCandidate = 0;
         // dd($nameCandidate);
         if (session()->has('LoggedUser')) {
             try {
@@ -90,7 +91,7 @@ class AgentAuthController extends Controller
                     // "LoggedUserAuth" => $autorisationAgent,
                 ];  
                 
-                return view('addCandidate', compact('agent','nameCandidate'), $data);
+                return view('addCandidate', compact('agent','nameCandidate','emailCandidate'), $data);
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
@@ -112,11 +113,15 @@ class AgentAuthController extends Controller
         }
         $individu->name_individu = $request->name_individu;
         $individu->lastName_individu = $request->lastName_individu;
+        $individu->dateofBirth_individu = $request->dateofBirth_individu;
+        
         $individu->save();
-        $instanceIndividu = Individu::where('name_individu','=',$request->name_individu);
+        $instanceIndividu = Individu::where('name_individu','=',$request->name_individu)->where('lastName_individu','=',$request->lastName_individu);
+        
         $fiche->iopa_individu_id = $instanceIndividu->first()->iopa_individu_id;
         $fiche->agent_id = $agent->id;
         $fiche->save();
+        // dd($fiche);
         return redirect()->route('showFiche', ['id' => $fiche->iopa_individu_id]);
         // dd($fiche);
     }

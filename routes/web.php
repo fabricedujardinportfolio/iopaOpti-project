@@ -29,11 +29,14 @@ Route::get('/', [AgentAuthController::class,"home"])->name("accueil")->middlewar
 Route::get('/addCandidate', [AgentAuthController::class,"read"])->name("readaddCandidate")->middleware('isLogged');
 Route::post('/addCandidate',[AgentAuthController::class,"add"])->name("addPost")->middleware('isLogged');
 
+
+
 Route::get('/addCandidate/{name_individu}', [AgentAuthController::class,"addCandidate"])->name("addCandidate")->middleware('isLogged');
 
 Route::resource('fiche',FicheController::class)->except('index');
 
 Route::get('fiche/{id}', [FicheController::class,"show"])->name("showFiche")->middleware('isLogged');
+Route::post('fiche/{id}', [FicheController::class,"updateIndividu"])->name("updateFiche")->middleware('isLogged');
 Route::get('fiche/ficheCandidate/{id}', [FicheController::class,"addFicheCandidat"])->name("addFicheCandidat")->middleware('isLogged');
 
 
