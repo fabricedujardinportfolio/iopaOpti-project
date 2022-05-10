@@ -288,7 +288,9 @@ class FicheController extends Controller
         $deuxiemeAdresse_individu = $request->input('deuxiemeAdresse_individu');
         $sexe_individu = $request->input('sexe_individu');
         $communeBirth_individu = $request->input('communeBirth_individu');
-        
+        $familyStatus_individu = $request->input('familyStatus_individu');
+        $dependentChildren_individu = $request->input('dependentChildren_individu');
+        // dd($familyStatus_individu);
 
         Individu::where('iopa_individu_id',$id)->update(
             ['name_individu'=>$name_individu,
@@ -299,7 +301,9 @@ class FicheController extends Controller
             'adresse_individu'=>$adresse_individu,
             'deuxiemeAdresse_individu'=>$deuxiemeAdresse_individu,
             'sexe_individu'=>$sexe_individu,
-            'communeBirth_individu'=>$communeBirth_individu
+            'communeBirth_individu'=>$communeBirth_individu,
+            'familyStatus_individu'=>$familyStatus_individu,
+            'dependentChildren_individu'=>$dependentChildren_individu
         ]);
         return back();
     }

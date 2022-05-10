@@ -18,14 +18,12 @@
                         <div class="col-md-3 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img
                                     class="rounded-circle mt-5" width="150px"
-                                    @if ($individu->first()->sexe_individu !== 'non-définie') 
-                                        @if ($individu->first()->sexe_individu == 'masculin')
+                                    @if ($individu->first()->sexe_individu !== 'non-définie') @if ($individu->first()->sexe_individu === 'masculin')
                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                                        @elseif($individu->first()->sexe_individu == 'feminin') 
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSPm8mq1tN_GVayhZLsqZnpsIGcMLaz2bxyw&usqp=CAU"
-                                        @endif
-                                                @else checked @endif
-                                    ><span
+                                        @elseif($individu->first()->sexe_individu === 'feminin') 
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSPm8mq1tN_GVayhZLsqZnpsIGcMLaz2bxyw&usqp=CAU" @endif
+                                @else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSPm8mq1tN_GVayhZLsqZnpsIGcMLaz2bxyw&usqp=CAU" @endif
+                                ><span
                                     class="font-weight-bold text-capitalize">{{ $individu->first()->name_individu }}</span><span
                                     class="text-black-50">{{ $individu->first()->email_individu }}</span><span> </span>
                             </div>
@@ -82,8 +80,8 @@
                                                 <input class="form-check-input" type="radio" name="sexe_individu"
                                                     id="masculin" value="masculin"
                                                     @if ($individu->first()->sexe_individu !== 'non-définie') @if ($individu->first()->sexe_individu == 'masculin')
-                                                checked
-                                                @elseif($individu->first()->sexe_individu == 'feminin') @endif
+                                                    checked
+                                                    @elseif($individu->first()->sexe_individu === 'feminin') @endif
                                                 @else checked @endif
                                                 <label class="form-check-label" for="masculin">
                                                     Masculin
@@ -94,7 +92,7 @@
                                                     id="feminin" value="feminin"
                                                     @if ($individu->first()->sexe_individu !== 'non-définie') @if ($individu->first()->sexe_individu == 'feminin')
                                                     checked
-                                                    @elseif($individu->first()->sexe_individu == 'masculin') @endif
+                                                    @elseif($individu->first()->sexe_individu === 'masculin') @endif
                                                 @else checked @endif>
 
                                                 <label class="form-check-label" for="feminin">
@@ -107,10 +105,8 @@
                                             portable</label><input type="text" class="form-control"
                                             placeholder="entrer le numéro de portable"
                                             value="{{ $individu->first()->portable_individu }}" name="portable_individu"
-                                            @if ($individu->first()->portable_individu !== 'non-définie')
-                                            pattern="[0-9]{2}[-][0-9]{2}[-][0-9]{2}"
-                                            @else 
-                                            @endif
+                                            @if ($individu->first()->portable_individu !== 'non-définie') pattern="[0-9]{2}[-][0-9]{2}[-][0-9]{2}"
+                                            @else @endif
                                             required>
                                     </div>
                                     <div class="col-md-4"><label class="labels">Date de naissance :
@@ -118,13 +114,11 @@
                                             placeholder="entrer la date de naissance de Individu"
                                             value="{{ $individu->first()->dateofBirth_individu }}"
                                             name="dateofBirth_individu"
-                                            @if ($individu->first()->dateofBirth_individu !== 'non-définie')
-                                            pattern="^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$"
-                                            @else    
-                                            @endif
+                                            @if ($individu->first()->dateofBirth_individu !== 'non-définie') pattern="^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$"
+                                            @else @endif
                                             required>
                                     </div>
-                                    
+
                                     <div class="col-md-2"><label class="labels">
                                             <?php
                                             if ($parseCarboneSolo !== 'Définir la date de naissance') {
@@ -137,12 +131,65 @@
                                         <input type="text" class="form-control" placeholder="Définir date de naissance"
                                             value="{{ $parseCarboneSolo }}" disabled>
                                     </div>
-                                    <div class="col-md-4"><label class="labels">Lieu de naissance :</label>
+                                    <div class=" col-12 col-md-6 d-md-flex d-block" style="align-self: center;">
+                                        <div class="form-check m-1">
+                                            <input class="form-check-input" type="radio" name="familyStatus_individu"
+                                                id="celibataire" value="celibataire"
+                                                @if ($individu->first()->familyStatus_individu !== 'non-définie') @if ($individu->first()->familyStatus_individu === 'celibataire')
+                                                    checked
+                                                    @else
+                                                    @endif
+                                            @else @endif>
+                                            <label class="form-check-label" for="celibataire">
+                                                Célibataire
+                                            </label>
+                                        </div>
+                                        <div class="form-check m-1">
+                                            <input class="form-check-input" type="radio" name="familyStatus_individu"
+                                                id="couple" value="couple"
+                                                @if ($individu->first()->familyStatus_individu !== 'non-définie') 
+                                                    @if ($individu->first()->familyStatus_individu === 'couple')
+                                                    checked
+                                                    @else @endif
+                                            @else checked @endif>
+                                            <label class="form-check-label" for="couple">
+                                                En couple
+                                            </label>
+                                        </div>
+                                        <div class="form-check m-1">
+                                            <input class="form-check-input" type="radio" name="familyStatus_individu"
+                                                id="marie" value="marie"
+                                                @if ($individu->first()->familyStatus_individu !== 'non-définie') @if ($individu->first()->familyStatus_individu === 'marie')
+                                                    checked
+                                                    @else @endif
+                                            @else @endif>
+                                            <label class="form-check-label" for="marie">
+                                                Marié(e)
+                                            </label>
+                                        </div>
+                                        <div class="form-check m-1">
+                                            <input class="form-check-input" type="radio" name="familyStatus_individu"
+                                                id="separeDivorce" value="Séparé(e)/Divorcé(e)"
+                                                @if ($individu->first()->familyStatus_individu !== 'non-définie') @if ($individu->first()->familyStatus_individu === 'Séparé(e)/Divorcé(e)')
+                                                    checked
+                                                    @else @endif
+                                            @else @endif>
+                                            <label class="form-check-label" for="separeDivorce">
+                                                Séparé(e)/Divorcé(e)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"><label class="labels">Lieu de naissance :</label>
                                         <input type="text" class="form-control"
-                                        placeholder="Lieu de naissance de Individu"
-                                        value="{{ $individu->first()->communeBirth_individu }}"
-                                        name="communeBirth_individu"
-                                        required>
+                                            placeholder="Lieu de naissance de Individu"
+                                            value="{{ $individu->first()->communeBirth_individu }}"
+                                            name="communeBirth_individu" required>
+                                    </div>
+                                    <div class="col-md-3"><label class="labels">Nombre d'enfants à charge :</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Nombre d'enfants à charge"
+                                            value="{{ $individu->first()->dependentChildren_individu }}"
+                                            name="dependentChildren_individu" required>
                                     </div>
                                     <div class="col-md-12"><label class="labels">Adresse 1</label><input
                                             type="text" class="form-control" placeholder="entrer une deuxieme une adresse"
@@ -185,8 +232,8 @@
                                 <h2>Les fiches de {{ $individu->first()->name_individu }}</h2>
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                                            aria-expanded="false">Ajouter une fiche</a>
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                            role="button" aria-expanded="false">Ajouter une fiche</a>
                                         <ul class="dropdown-menu">
                                             @if ($fichePaios !== 'Aucune fiche Paio')
                                                 <li><a class="dropdown-item"
