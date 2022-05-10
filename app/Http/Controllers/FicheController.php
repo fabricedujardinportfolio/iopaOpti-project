@@ -229,7 +229,7 @@ class FicheController extends Controller
                 }else {
                     $parseCarboneSolo =  "Définir la date de naissance";
                 }
-                // dd($parseCarbone);
+                // dd($individu->first()->nationality_individu);
                 return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers','parseCarboneSolo'));
             } catch (QueryException $exception) {
                 return view('auth.login');
@@ -281,18 +281,25 @@ class FicheController extends Controller
         // dd();
         $name_individu = $request->input('name_individu');
         $lastName_individu = $request->input('lastName_individu');
+        $maidenName_individu = $request->input('maidenName_individu');
         $portable_individu = $request->input('portable_individu');
         $dateofBirth_individu = $request->input('dateofBirth_individu');
         $adresse_individu = $request->input('adresse_individu');
         $deuxiemeAdresse_individu = $request->input('deuxiemeAdresse_individu');
+        $sexe_individu = $request->input('sexe_individu');
+        $communeBirth_individu = $request->input('communeBirth_individu');
+        
 
         Individu::where('iopa_individu_id',$id)->update(
             ['name_individu'=>$name_individu,
             'lastName_individu'=>$lastName_individu,
+            'maidenName_individu'=>$maidenName_individu,
             'portable_individu'=>$portable_individu,
             'dateofBirth_individu'=>$dateofBirth_individu,
             'adresse_individu'=>$adresse_individu,
-            'deuxiemeAdresse_individu'=>$deuxiemeAdresse_individu
+            'deuxiemeAdresse_individu'=>$deuxiemeAdresse_individu,
+            'sexe_individu'=>$sexe_individu,
+            'communeBirth_individu'=>$communeBirth_individu
         ]);
         return back();
     }

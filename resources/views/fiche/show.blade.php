@@ -18,7 +18,14 @@
                         <div class="col-md-3 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img
                                     class="rounded-circle mt-5" width="150px"
-                                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                                    @if ($individu->first()->sexe_individu !== 'non-définie') 
+                                        @if ($individu->first()->sexe_individu == 'masculin')
+                                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                                        @elseif($individu->first()->sexe_individu == 'feminin') 
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSPm8mq1tN_GVayhZLsqZnpsIGcMLaz2bxyw&usqp=CAU"
+                                        @endif
+                                                @else checked @endif
+                                    ><span
                                     class="font-weight-bold text-capitalize">{{ $individu->first()->name_individu }}</span><span
                                     class="text-black-50">{{ $individu->first()->email_individu }}</span><span> </span>
                             </div>
@@ -51,41 +58,96 @@
                                 <div class="row mt-2">
                                     <div class="col-md-6"><label class="labels">Prénom</label><input
                                             type="text" class="form-control" placeholder="first name"
-                                            value="{{ $individu->first()->name_individu }}" name="name_individu" required></div>
+                                            value="{{ $individu->first()->name_individu }}" name="name_individu" required>
+                                    </div>
                                     <div class="col-md-6"><label class="labels">Nom de famille</label><input
                                             type="text" class="form-control"
                                             value="{{ $individu->first()->lastName_individu }}" placeholder="nomDeFamille"
                                             name="lastName_individu" required>
                                     </div>
+                                    <div class="col-md-6"><label class="labels">Nom de jeune
+                                            fille</label><input type="text" class="form-control text-capitalize"
+                                            value="{{ $individu->first()->maidenName_individu }}"
+                                            placeholder="Nom de jeune fille" name="maidenName_individu" required></div>
+                                    <div class="col-md-6"><label class="labels">Nationalité</label><input
+                                            type="text" class="form-control text-capitalize"
+                                            value="{{ $individu->first()->nationality_individu }}"
+                                            placeholder="Nationalité" name="nationality_individu" required></div>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12"><label class="labels">Numéro de
+                                <div class="row">
+                                    <div class="col-md-3" style="align-self: center;">
+                                        <div class="d-md-flex d-block">
+                                            <h6 class="firstBoxe mt-auto">Sexe :</h6>
+                                            <div class="form-check m-1">
+                                                <input class="form-check-input" type="radio" name="sexe_individu"
+                                                    id="masculin" value="masculin"
+                                                    @if ($individu->first()->sexe_individu !== 'non-définie') @if ($individu->first()->sexe_individu == 'masculin')
+                                                checked
+                                                @elseif($individu->first()->sexe_individu == 'feminin') @endif
+                                                @else checked @endif
+                                                <label class="form-check-label" for="masculin">
+                                                    Masculin
+                                                </label>
+                                            </div>
+                                            <div class="form-check m-1">
+                                                <input class="form-check-input" type="radio" name="sexe_individu"
+                                                    id="feminin" value="feminin"
+                                                    @if ($individu->first()->sexe_individu !== 'non-définie') @if ($individu->first()->sexe_individu == 'feminin')
+                                                    checked
+                                                    @elseif($individu->first()->sexe_individu == 'masculin') @endif
+                                                @else checked @endif>
+
+                                                <label class="form-check-label" for="feminin">
+                                                    Féminin
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"><label class="labels">Numéro de
                                             portable</label><input type="text" class="form-control"
                                             placeholder="entrer le numéro de portable"
-                                            value="{{ $individu->first()->portable_individu }}" name="portable_individu" pattern="[0-9]{2}[-][0-9]{2}[-][0-9]{2}" required>
+                                            value="{{ $individu->first()->portable_individu }}" name="portable_individu"
+                                            @if ($individu->first()->portable_individu !== 'non-définie')
+                                            pattern="[0-9]{2}[-][0-9]{2}[-][0-9]{2}"
+                                            @else 
+                                            @endif
+                                            required>
                                     </div>
-                                    <div class="col-md-10"><label class="labels">Date de naissance :
+                                    <div class="col-md-4"><label class="labels">Date de naissance :
                                             <em>12-12-2000</em> </label><input type="text" class="form-control"
                                             placeholder="entrer la date de naissance de Individu"
                                             value="{{ $individu->first()->dateofBirth_individu }}"
                                             name="dateofBirth_individu"
-                                            pattern="^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$" required>
+                                            @if ($individu->first()->dateofBirth_individu !== 'non-définie')
+                                            pattern="^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$"
+                                            @else    
+                                            @endif
+                                            required>
                                     </div>
+                                    
                                     <div class="col-md-2"><label class="labels">
-                                            <?php 
-                                        if($parseCarboneSolo !== "Définir la date de naissance" ){
-                                            echo "Age";
-                                        }else{
-                                            print $parseCarboneSolo;
-                                        }
-                                        ?>
+                                            <?php
+                                            if ($parseCarboneSolo !== 'Définir la date de naissance') {
+                                                echo 'Age';
+                                            } else {
+                                                print $parseCarboneSolo;
+                                            }
+                                            ?>
                                         </label>
                                         <input type="text" class="form-control" placeholder="Définir date de naissance"
                                             value="{{ $parseCarboneSolo }}" disabled>
                                     </div>
+                                    <div class="col-md-4"><label class="labels">Lieu de naissance :</label>
+                                        <input type="text" class="form-control"
+                                        placeholder="Lieu de naissance de Individu"
+                                        value="{{ $individu->first()->communeBirth_individu }}"
+                                        name="communeBirth_individu"
+                                        required>
+                                    </div>
                                     <div class="col-md-12"><label class="labels">Adresse 1</label><input
                                             type="text" class="form-control" placeholder="entrer une deuxieme une adresse"
-                                            value="{{ $individu->first()->adresse_individu }}" name="adresse_individu" required>
+                                            value="{{ $individu->first()->adresse_individu }}" name="adresse_individu"
+                                            required>
                                     </div>
                                     <div class="col-md-12"><label class="labels">Adresse 2
                                             deuxieme</label><input type="text" class="form-control"
