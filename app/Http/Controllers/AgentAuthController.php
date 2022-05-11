@@ -114,6 +114,7 @@ class AgentAuthController extends Controller
         $individu->name_individu = $request->name_individu;
         $individu->lastName_individu = $request->lastName_individu;
         $individu->dateofBirth_individu = $request->dateofBirth_individu;
+        $individu->sexe_individu = $request->sexe_individu;
         
         $individu->save();
         $instanceIndividu = Individu::where('name_individu','=',$request->name_individu)->where('lastName_individu','=',$request->lastName_individu);

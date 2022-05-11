@@ -229,7 +229,7 @@ class FicheController extends Controller
                 }else {
                     $parseCarboneSolo =  "Définir la date de naissance";
                 }
-                // dd($individu->first()->nationality_individu);
+                // dd($individu->first()->portable_individu);
                 return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers','parseCarboneSolo'));
             } catch (QueryException $exception) {
                 return view('auth.login');
@@ -290,6 +290,11 @@ class FicheController extends Controller
         $communeBirth_individu = $request->input('communeBirth_individu');
         $familyStatus_individu = $request->input('familyStatus_individu');
         $dependentChildren_individu = $request->input('dependentChildren_individu');
+        $commune_individu = $request->input('commune_individu');
+        $quartier_individu = $request->input('quartier_individu');
+        $postalAdresse_individu = $request->input('postalAdresse_individu');
+        $email_individu = $request->input('email_individu');
+        $situationProStatu_individu = $request->input('situationProStatu_individu');
         // dd($familyStatus_individu);
 
         Individu::where('iopa_individu_id',$id)->update(
@@ -303,7 +308,12 @@ class FicheController extends Controller
             'sexe_individu'=>$sexe_individu,
             'communeBirth_individu'=>$communeBirth_individu,
             'familyStatus_individu'=>$familyStatus_individu,
-            'dependentChildren_individu'=>$dependentChildren_individu
+            'dependentChildren_individu'=>$dependentChildren_individu,
+            'commune_individu'=>$commune_individu,
+            'quartier_individu'=>$quartier_individu,
+            'postalAdresse_individu'=>$postalAdresse_individu,
+            'email_individu'=>$email_individu,
+            'situationProStatu_individu'=>$situationProStatu_individu
         ]);
         return back();
     }
