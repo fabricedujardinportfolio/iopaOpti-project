@@ -37,9 +37,13 @@ Route::resource('fiche',FicheController::class)->except('index');
 
 Route::get('fiche/{id}', [FicheController::class,"show"])->name("showFiche")->middleware('isLogged');
 Route::post('fiche/{id}', [FicheController::class,"updateIndividu"])->name("updateFiche")->middleware('isLogged');
+Route::get('fiche/diplomeDest/{id}', [FicheController::class,"destroy"])->name("destroyDiplome")->middleware('isLogged');
+Route::post('fiche/diplomeUpdate/{id}', [FicheController::class,"update"])->name("updateDiplomeFiche")->middleware('isLogged');
+// Route::upda('fiche/{id}', [FicheController::class,"updateDiplomeIndividu"])->name("updateDiplomeFiche")->middleware('isLogged');
 Route::get('fiche/ficheCandidate/{id}', [FicheController::class,"addFicheCandidat"])->name("addFicheCandidat")->middleware('isLogged');
 
 
+Route::post('/autocompletee',[FicheController::class,"autocompletee"])->name("searchAjaxautocompletetes")->middleware('isLogged');
 // Route::get('/dashboard/{id}', [listingStudentController::class, 'showTable'])->name('dashboard-formation');
 // AJAX
 

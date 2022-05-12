@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Response;
+use Carbon\Carbon;
 use App\Models\Agent;
 use App\Models\Fiche;
-use App\Models\FicheTypeAtelier;
+use App\Models\Diplome;
+use App\Models\Individu;
+use Illuminate\Support\Str;
+use App\Models\FicheTypeVae;
+use Illuminate\Http\Request;
 use App\Models\FicheTypePaio;
 use App\Models\FicheTypeSpip;
 use App\Models\FicheTypeSpot;
-use App\Models\FicheTypeVae;
-use App\Models\Individu;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Models\FicheTypeAtelier;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class FicheController extends Controller
 {
@@ -28,26 +32,7 @@ class FicheController extends Controller
         return view('post.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -108,7 +93,7 @@ class FicheController extends Controller
                         // fichePaios call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche paio demandé à une erreur";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($fichePaios->count() == 0) {
+                    } elseif ($fichePaios->count() == 0) {
                         $fichePaios = "Aucune fiche Paio";
                     } else {
                         $fichePaios;
@@ -119,7 +104,7 @@ class FicheController extends Controller
 
                 // Fiche VAE
                 try {
-                    
+
                     $ficheVaes = FicheTypeVae::select('*')->where('iopa_fiche_id', '=', $fiche->iopa_fiche_id)->paginate(2, ["*"], "pageVae");
                     if ($ficheVaes === null) {
                         // Si la variable ficheVaes egal null alors la variable egale erreur
@@ -129,7 +114,7 @@ class FicheController extends Controller
                         // ficheVaes call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche vae demandé à une erreur";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($ficheVaes->count() == 0) {
+                    } elseif ($ficheVaes->count() == 0) {
                         $ficheVaes = "Aucune fiche Vae";
                     } else {
                         $ficheVaes;
@@ -149,7 +134,7 @@ class FicheController extends Controller
                         // ficheSpips call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche spip demandé à une erreur";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($ficheSpips->count() == 0) {
+                    } elseif ($ficheSpips->count() == 0) {
                         $ficheSpips = "Aucune fiche Spip";
                     } else {
                         $ficheSpips;
@@ -169,7 +154,7 @@ class FicheController extends Controller
                         // ficheSpots call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche spot demandé à une erreur";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($ficheSpots->count() == 0) {
+                    } elseif ($ficheSpots->count() == 0) {
                         $ficheSpots = "Aucune fiche Spot";
                     } else {
                         $ficheSpots;
@@ -189,7 +174,7 @@ class FicheController extends Controller
                         // ficheAteliers call in URL doesn't exist   
                         $ficheindividuNotExiste = "la fiche spot demandé à une erreur";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($ficheAteliers->count() == 0) {
+                    } elseif ($ficheAteliers->count() == 0) {
                         $ficheAteliers = "Aucune fiche Atelier";
                     } else {
                         $ficheAteliers;
@@ -210,27 +195,55 @@ class FicheController extends Controller
                         // individu call in URL doesn't exist   
                         $ficheindividuNotExiste = "l'individu demandé n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }elseif ($fiche->iopa_individu_id !== $individu->first()->iopa_individu_id) {
+                    } elseif ($fiche->iopa_individu_id !== $individu->first()->iopa_individu_id) {
                         // fiche de l'utilisateur doesn't exist
                         $ficheindividuNotExiste = "la fiche de l'utilisateur n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
-                    }else {
+                    } else {
                         $individu;
                     }
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
+
+                //ID des diplôme par rapport à ID de l'individu
+                try {
+                    $name = $individu->first()->name_individu;
+                    // dd($name);
+                    $diplomes = diplome::where('iopa_individu_id', '=', $fiche->iopa_individu_id)->paginate(4, ["*"], "pagediplomes$name");
+                    // dd($diplomes);
+                    if ($diplomes === null) {
+                        // Si la variable individu egal null alors la variable egale erreur
+                        $diplomes = "erreur";
+                    }
+                    if ($diplomes === "erreur") {
+                        // individu call in URL doesn't exist   
+                        $ficheindividuNotExiste = "les diplômes de l'individu demandé n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } elseif ($diplomes->count() == 0) {
+                        $diplomes = "Aucune diplôme ?";
+                    } elseif ($fiche->iopa_individu_id !== $diplomes->first()->iopa_individu_id) {
+                        // fiche de l'utilisateur doesn't exist
+                        $ficheindividuNotExiste = "les diplômes de l'individu n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } else {
+                        $diplomes;
+                    }
+                    // dd($diplomes);
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
                 // dd($individu->first()->dateofBirth_individu);
-                if ($individu->first()->dateofBirth_individu !==  "non-définie") {                    
+                if ($individu->first()->dateofBirth_individu !==  "non-définie") {
                     $parseCarbone = Carbon::parse($individu->first()->dateofBirth_individu);
                     // dd($parseCarbone->age);
                     // dd($this->dateofBirth_individu->age);
-                    $parseCarboneSolo = $parseCarbone->age; 
-                }else {
+                    $parseCarboneSolo = $parseCarbone->age;
+                } else {
                     $parseCarboneSolo =  "Définir la date de naissance";
                 }
                 // dd($individu->first()->portable_individu);
-                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips','ficheSpots','ficheAteliers','parseCarboneSolo'));
+                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips', 'ficheSpots', 'ficheAteliers', 'parseCarboneSolo', 'diplomes'));
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
@@ -276,74 +289,106 @@ class FicheController extends Controller
         }
         return view('fiche.ficheSuiviCandidat',  compact('fiche', 'agent', 'individu'));
     }
-    public function updateIndividu(Request $request,$id)
+    public function updateIndividu(Request $request, $id)
     {
-        // dd();
-        $name_individu = $request->input('name_individu');
-        $lastName_individu = $request->input('lastName_individu');
-        $maidenName_individu = $request->input('maidenName_individu');
-        $portable_individu = $request->input('portable_individu');
-        $dateofBirth_individu = $request->input('dateofBirth_individu');
-        $adresse_individu = $request->input('adresse_individu');
-        $deuxiemeAdresse_individu = $request->input('deuxiemeAdresse_individu');
-        $sexe_individu = $request->input('sexe_individu');
-        $communeBirth_individu = $request->input('communeBirth_individu');
-        $familyStatus_individu = $request->input('familyStatus_individu');
-        $dependentChildren_individu = $request->input('dependentChildren_individu');
-        $commune_individu = $request->input('commune_individu');
-        $quartier_individu = $request->input('quartier_individu');
-        $postalAdresse_individu = $request->input('postalAdresse_individu');
-        $email_individu = $request->input('email_individu');
-        $situationProStatu_individu = $request->input('situationProStatu_individu');
-        $chomageDemendeur_individu = $request->input('chomageDemendeur_individu');
-        $chomageDemendeurPeriodeDeb_individu = $request->input('chomageDemendeurPeriodeDeb_individu');
-        $chomageDemendeurPeriodeFin_individu = $request->input('chomageDemendeurPeriodeFin_individu');
-        $validiterCafat_individu = $request->input('validiterCafat_individu');
-        $validiterAidemedical_individu = $request->input('validiterAidemedical_individu');
-        $travailleurHandicaper_individu = $request->input('travailleurHandicaper_individu');
-        // dd($request);
+        
+        // if ($request->has('profile') === true) {
 
-        // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
-        if ($chomageDemendeur_individu === null) {
-            $chomageDemendeur_individu = 'non-définie';
-        }
-        if ($chomageDemendeur_individu === 'non' || $chomageDemendeur_individu === 'non-définie') {
-            $chomageDemendeurPeriodeDeb_individu = 'non-définie';
-            $chomageDemendeurPeriodeFin_individu = 'non-définie';
-        }
-        if ($chomageDemendeurPeriodeDeb_individu === null || $chomageDemendeurPeriodeFin_individu === null) {            
-            $chomageDemendeurPeriodeDeb_individu = 'non-définie';
-            $chomageDemendeurPeriodeFin_individu = 'non-définie';
-        }
-        // dd($chomageDemendeurPeriodeDeb_individu);
+        // }
+        //     dd($request);
+        // dd($request->has('profile'));
+        if ($request->has('profile') === true) {
+            // dd($request->has('profile'));
+            $name_individu = $request->input('name_individu');
+            $lastName_individu = $request->input('lastName_individu');
+            $maidenName_individu = $request->input('maidenName_individu');
+            $portable_individu = $request->input('portable_individu');
+            $dateofBirth_individu = $request->input('dateofBirth_individu');
+            $adresse_individu = $request->input('adresse_individu');
+            $deuxiemeAdresse_individu = $request->input('deuxiemeAdresse_individu');
+            $sexe_individu = $request->input('sexe_individu');
+            $communeBirth_individu = $request->input('communeBirth_individu');
+            $familyStatus_individu = $request->input('familyStatus_individu');
+            $dependentChildren_individu = $request->input('dependentChildren_individu');
+            $commune_individu = $request->input('commune_individu');
+            $quartier_individu = $request->input('quartier_individu');
+            $postalAdresse_individu = $request->input('postalAdresse_individu');
+            $email_individu = $request->input('email_individu');
+            $situationProStatu_individu = $request->input('situationProStatu_individu');
+            $chomageDemendeur_individu = $request->input('chomageDemendeur_individu');
+            $chomageDemendeurPeriodeDeb_individu = $request->input('chomageDemendeurPeriodeDeb_individu');
+            $chomageDemendeurPeriodeFin_individu = $request->input('chomageDemendeurPeriodeFin_individu');
+            $validiterCafat_individu = $request->input('validiterCafat_individu');
+            $validiterAidemedical_individu = $request->input('validiterAidemedical_individu');
+            $travailleurHandicaper_individu = $request->input('travailleurHandicaper_individu');
+            // dd($request);
 
-        Individu::where('iopa_individu_id',$id)->update(
-            ['name_individu'=>$name_individu,
-            'lastName_individu'=>$lastName_individu,
-            'maidenName_individu'=>$maidenName_individu,
-            'portable_individu'=>$portable_individu,
-            'dateofBirth_individu'=>$dateofBirth_individu,
-            'adresse_individu'=>$adresse_individu,
-            'deuxiemeAdresse_individu'=>$deuxiemeAdresse_individu,
-            'sexe_individu'=>$sexe_individu,
-            'communeBirth_individu'=>$communeBirth_individu,
-            'familyStatus_individu'=>$familyStatus_individu,
-            'dependentChildren_individu'=>$dependentChildren_individu,
-            'commune_individu'=>$commune_individu,
-            'quartier_individu'=>$quartier_individu,
-            'postalAdresse_individu'=>$postalAdresse_individu,
-            'email_individu'=>$email_individu,
-            'situationProStatu_individu'=>$situationProStatu_individu,
-            'chomageDemendeur_individu'=>$chomageDemendeur_individu,
-            'chomageDemendeurPeriodeDeb_individu'=>$chomageDemendeurPeriodeDeb_individu,
-            'chomageDemendeurPeriodeFin_individu'=>$chomageDemendeurPeriodeFin_individu,
-            'validiterCafat_individu'=>$validiterCafat_individu,
-            'validiterAidemedical_individu'=>$validiterAidemedical_individu,
-            'travailleurHandicaper_individu'=>$travailleurHandicaper_individu
+            // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
+            if ($chomageDemendeur_individu === null) {
+                $chomageDemendeur_individu = 'non-définie';
+            }
+            if ($chomageDemendeur_individu === 'non' || $chomageDemendeur_individu === 'non-définie') {
+                $chomageDemendeurPeriodeDeb_individu = 'non-définie';
+                $chomageDemendeurPeriodeFin_individu = 'non-définie';
+            }
+            if ($chomageDemendeurPeriodeDeb_individu === null || $chomageDemendeurPeriodeFin_individu === null) {
+                $chomageDemendeurPeriodeDeb_individu = 'non-définie';
+                $chomageDemendeurPeriodeFin_individu = 'non-définie';
+            }
+            // dd($chomageDemendeurPeriodeDeb_individu);
 
-        ]);
+            Individu::where('iopa_individu_id', $id)->update(
+                [
+                    'name_individu' => $name_individu,
+                    'lastName_individu' => $lastName_individu,
+                    'maidenName_individu' => $maidenName_individu,
+                    'portable_individu' => $portable_individu,
+                    'dateofBirth_individu' => $dateofBirth_individu,
+                    'adresse_individu' => $adresse_individu,
+                    'deuxiemeAdresse_individu' => $deuxiemeAdresse_individu,
+                    'sexe_individu' => $sexe_individu,
+                    'communeBirth_individu' => $communeBirth_individu,
+                    'familyStatus_individu' => $familyStatus_individu,
+                    'dependentChildren_individu' => $dependentChildren_individu,
+                    'commune_individu' => $commune_individu,
+                    'quartier_individu' => $quartier_individu,
+                    'postalAdresse_individu' => $postalAdresse_individu,
+                    'email_individu' => $email_individu,
+                    'situationProStatu_individu' => $situationProStatu_individu,
+                    'chomageDemendeur_individu' => $chomageDemendeur_individu,
+                    'chomageDemendeurPeriodeDeb_individu' => $chomageDemendeurPeriodeDeb_individu,
+                    'chomageDemendeurPeriodeFin_individu' => $chomageDemendeurPeriodeFin_individu,
+                    'validiterCafat_individu' => $validiterCafat_individu,
+                    'validiterAidemedical_individu' => $validiterAidemedical_individu,
+                    'travailleurHandicaper_individu' => $travailleurHandicaper_individu
+
+                ]
+            );
+                        
+            return redirect()->to(app('url')->previous()."/#backSaveProfile");
+        } elseif ($request->has('diplome') === true) {
+
+            // dd($request);
+            $diplome = new Diplome;
+            $anneDiplome_individu = $request->input('anneDiplome_individu');
+            $nameDiplome_individu = $request->input('nameDiplome_individu');
+            $iopa_individu_id = $request->input('iopa_individu_id');
+
+            $diplome->anneDiplome_individu = $anneDiplome_individu;
+            $diplome->nameDiplome_individu = $nameDiplome_individu;
+            $diplome->iopa_individu_id = $iopa_individu_id;
+            
+            $diplome->save();
+            return redirect()->to(app('url')->previous()."/#statuProfiles");
+        } else {
+            $ficheindividuNotExiste = "Une erreur ces produite lors de l'enregistrement des données du profile";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+        }
+
+
         return back();
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -355,6 +400,20 @@ class FicheController extends Controller
         //
     }
 
+    public function create()
+    {
+        return back();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -365,6 +424,22 @@ class FicheController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($id);
+        // dd($request);
+        $diplome = new Diplome;
+        $anneDiplome_individu = $request->input('anneDiplome_individu');
+        $nameDiplome_individu = $request->input('nameDiplome_individu');
+
+
+        Diplome::where('iopa_IndividuDiplome_id', $id)->update(
+            [
+                'anneDiplome_individu' => $anneDiplome_individu,
+                'nameDiplome_individu' => $nameDiplome_individu
+
+            ]
+        );  
+        return redirect()->to(app('url')->previous()."/#statuProfiles");
+        // return back('#formDiplome');
     }
 
     /**
@@ -375,6 +450,7 @@ class FicheController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Diplome::where('iopa_IndividuDiplome_id', '=', $id)->delete();        
+        return redirect()->to(app('url')->previous()."/#statuProfiles");
     }
 }

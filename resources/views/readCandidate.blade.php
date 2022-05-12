@@ -77,13 +77,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="container d-flex">
-                <div class="alertDismissible">
-                    {{ __('Tu es connectée!') }}
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

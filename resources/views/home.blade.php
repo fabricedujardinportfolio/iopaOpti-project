@@ -16,10 +16,6 @@
                     </div>
 
                     @endif
-
-                    <div class="alertDismissible">
-                        {{ __('Tu es connectée!') }}
-                    </div>
                     <form class="navbar-search m-auto mb-2">
                         @csrf
                         <div class="input-append">

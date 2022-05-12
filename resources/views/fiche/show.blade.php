@@ -51,7 +51,7 @@
                         <div class="col-md-9 border-right" style="background-color:#efefef;">
                             <div class="p-3 py-5">
                                 <div class=" justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Info du profil</h4>
+                                    <h4 class="text-right" id="backSaveProfile">Info du profil</h4>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-6"><label class="labels">Prénom :</label><input
@@ -188,7 +188,7 @@
                                             name="dependentChildren_individu" required>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" >
                                     <div class="col-md-6">
                                         <div class="col-md-12"><label class="labels">Adresse :
                                                 1</label><input type="text" class="form-control"
@@ -227,7 +227,7 @@
                                             name="email_individu">
                                     </div>
                                 </div>
-                                <div class="row my-2" style="background-color: #f5faff">
+                                <div class="row my-2" style="background-color: #f5faff" id="statuProfiles">
                                     <label class="form-check-label mt-2">
                                         Status :
                                     </label>
@@ -587,334 +587,355 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label class="form-check-label">
-                                        Parcours scolaire et formations
-                                    </label>
-                                    <div class="container">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>All <input type="checkbox" id="select-all"></th>
-                                                    <th>Année(s)</th>
-                                                    <th>Nom du diplôme</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><span class="btn btn-primary" id="add-row">Rajouter un diplôme</span></td>
-                                                    <td>
-                                                        <input type="text" class="form-control" id="diplome" placeholder="Nom du diplôme">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control" id="annee" placeholder="Année(s)">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="col-md-3">
-                                            <span class="remove-row bg-danger" id="remove-row">Suprimer un diplôme</span>
-                                        </div>
-
-                                    </div>
+                                <div class=" text-center mt-3 mb-4">
+                                    <button class="btn btn-primary profile-button" type="submit" name="profile"
+                                        value="profile">
+                                        Enregistrer le profil</button>
                                 </div>
-                            </div>
 
+            </form>
+            <hr class="mb-1">
+            <div class="col-md-12 mt-1">
+                <div class="col-md-12 mb-2">
+                    <label class="form-check-label" style="vertical-align: middle;">
+                        <strong class="h4">Parcours scolaire et formations :</strong>
+                    </label>
+                    <button type="button" id="formDiplome" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Rajouter un diplôme
+                    </button>
 
-                            <div class=" text-center mt-3">
-                                <button class="btn btn-primary profile-button" type="submit">
-                                    Enregistrer le profil</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Diplôme
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('updateFiche', $individu->first()->iopa_individu_id) }}"
+                                    method="post" id="form">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <input type="text" class="form-control" id="diplome"
+                                            name="anneDiplome_individu" placeholder="Nom du diplôme" required>
+                                        <input type="text" class="form-control my-1" id="annee" placeholder="Année(s)"
+                                            name="nameDiplome_individu" required>
+                                        <input type="text" class="form-control my-1 d-none" id="annee"
+                                            placeholder="Année(s)" name="iopa_individu_id"
+                                            value="{{ $individu->first()->iopa_individu_id }}" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-primary" name="diplome"
+                                            value="diplome">Sauvegarder</button>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
-
-
-                        <div class="col-4"></div>
                     </div>
                 </div>
-        </div>
-    </div>
-    </form>
-    <div class="col-md-12 d-flex">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience">
-                    <h2>Les fiches de {{ $individu->first()->name_individu }}</h2>
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                                aria-expanded="false">Ajouter une fiche</a>
-                            <ul class="dropdown-menu">
-                                @if ($fichePaios !== 'Aucune fiche Paio')
-                                    <li><a class="dropdown-item"
-                                            href="ficheCandidate/{{ $fichePaios->first()->iopa_fiche_type_paio_id }}"
-                                            style="background-color: #6e7175 !important;color:white;">PAIO :
-                                            Il existe déja une fiche PAIO</a></li>
-                                @else
-                                    <li><a class="dropdown-item" href="ficheCandidate/">PAIO : Fiche de
-                                            suivi Candidat</a></li>
-                                @endif
-                                <li><a class="dropdown-item" href="#">Vae : Fiche analyse de demande</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Atelier : Questionaire de
-                                        motivation</a></li>
-                                <li><a class="dropdown-item" href="#">Spot : Fiche d'inscription spot</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                @if ($ficheSpips !== 'Aucune fiche Spip')
-                                    <li><a class="dropdown-item"
-                                            href="ficheSuiviSpip/{{ $ficheSpips->first()->iopa_fiche_type_spip_id }}"
-                                            style="background-color: #6e7175 !important;color:white;">SPIP :
-                                            Il existe déja une fiche Spip</a></li>
-                                @else
-                                    <li><a class="dropdown-item" href="#">Spip : Fiche de suivi spip</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                    </ul>
-                </div><br>
+                <div class="col-md-12" >
 
-                <section>
-                    <div class="container py-3">
-                        <div class="p-2">
-                            <span style="text-decoration-line: underline; background-color: #94c123; color:white;"
-                                class="p-2" id="ficheVae">Fiche type : Paio</span>
-                        </div>
-                        @if ($fichePaios !== 'Aucune fiche Paio')
-                            @foreach ($fichePaios as $fichePaio)
-                                <div class="card my-2" style="background-color: #c5d994;">
-                                    <div class="row ">
-                                        <div class="col-md-12 px-3 py-2">
-                                            <div class="card-block px-3">
-                                                <h4 class="card-title">
-                                                    {{ $fichePaio->iopa_fiche_type_paio_title }}</h4>
-                                                <p class="card-text">Consectetur adipiscing elit, sed
-                                                    do eiusmod tempor incididunt ut labore et dolore magna
-                                                    aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo consequat. </p>
-                                                <p class="card-text">Duis aute irure dolor in
-                                                    reprehenderit in voluptate velit esse cillum dolore eu
-                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.</p>
-                                                <a href="#" class="btn btn-primary">Lire la fiche</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <p colspan="9" class="table-active text-center p-2 mt-2"
-                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                {{ $fichePaios }}</p>
-                        @endif
-                        <hr class="dropdown-divider">
-                        <div class="p-2">
-                            <span style="text-decoration-line: underline; background-color: #6aa1db; color:white;"
-                                class="p-2" id="ficheVae">Fiche type : Vae</span>
-                        </div>
-                        @if ($ficheVaes !== 'Aucune fiche Vae')
-                            @foreach ($ficheVaes as $ficheVae)
-                                <div class="card my-2" style="background-color: #b7d6f8;">
-                                    <div class="row ">
-                                        <div class="col-md-12 px-3 py-2">
-                                            <div class="card-block px-3">
-                                                <h4 class="card-title">
-                                                    {{ $ficheVae->iopa_fiche_type_vae_title }}</h4>
-                                                <p class="card-text">Consectetur adipiscing elit, sed
-                                                    do eiusmod tempor incididunt ut labore et dolore magna
-                                                    aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo consequat. </p>
-                                                <p class="card-text">Duis aute irure dolor in
-                                                    reprehenderit in voluptate velit esse cillum dolore eu
-                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.</p>
-                                                <a href="{{ $ficheVae->iopa_fiche_type_vae_id }}"
-                                                    class="btn btn-primary">Lire la fiche</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endforeach
-                            {{ $ficheVaes->links() }}
-                        @else
-                            <p colspan="9" class="table-active text-center p-2 mt-2"
-                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                {{ $ficheVaes }}</p>
-                        @endif
-                        <hr class="dropdown-divider">
-                        <div class="p-2">
-                            <span style="text-decoration-line: underline; background-color: #f7ab59; color:white;"
-                                class="p-2 mt-2" id="ficheSpot">Fiche type : Atelier</span>
-                        </div>
-                        @if ($ficheAteliers !== 'Aucune fiche Atelier')
-                            @foreach ($ficheAteliers as $ficheAtelier)
-                                <div class="card my-2" style="background-color: #e3b482;">
-                                    <div class="row ">
-                                        <div class="col-md-12 px-3 py-2">
-                                            <div class="card-block px-3">
-                                                <h4 class="card-title">
-                                                    {{ $ficheAtelier->iopa_fiche_type_atelier_title }}</h4>
-                                                <p class="card-text">Consectetur adipiscing elit, sed
-                                                    do eiusmod tempor incididunt ut labore et dolore magna
-                                                    aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo consequat. </p>
-                                                <p class="card-text">Duis aute irure dolor in
-                                                    reprehenderit in voluptate velit esse cillum dolore eu
-                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.</p>
-                                                <a href="{{ $ficheAtelier->iopa_fiche_type_atelier_id }}"
-                                                    class="btn btn-primary">Lire la fiche</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endforeach
-                            {{ $ficheAteliers->links() }}
-                        @else
-                            <p colspan="9" class="table-active text-center p-2 mt-2"
-                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                {{ $ficheAteliers }}</p>
-                        @endif
-                        <hr class="dropdown-divider">
-                        <div class="p-2">
-                            <span style="text-decoration-line: underline; background-color: #b12036; color:white;"
-                                class="p-2 mt-2" id="ficheSpot">Fiche type : Spot</span>
-                        </div>
-                        @if ($ficheSpots !== 'Aucune fiche Spot')
-                            @foreach ($ficheSpots as $ficheSpot)
-                                <div class="card my-2" style="background-color: #d47584;">
-                                    <div class="row ">
-                                        <div class="col-md-12 px-3 py-2">
-                                            <div class="card-block px-3">
-                                                <h4 class="card-title">
-                                                    {{ $ficheSpot->iopa_fiche_type_spot_title }}</h4>
-                                                <p class="card-text">Consectetur adipiscing elit, sed
-                                                    do eiusmod tempor incididunt ut labore et dolore magna
-                                                    aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo consequat. </p>
-                                                <p class="card-text">Duis aute irure dolor in
-                                                    reprehenderit in voluptate velit esse cillum dolore eu
-                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.</p>
-                                                <a href="{{ $ficheSpot->iopa_fiche_type_spot_id }}"
-                                                    class="btn btn-primary">Lire la fiche</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endforeach
-                            {{ $ficheSpots->links() }}
-                        @else
-                            <p colspan="9" class="table-active text-center p-2 mt-2"
-                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                {{ $ficheSpots }}</p>
-                        @endif
-                        <hr class="dropdown-divider">
-                        <div class="p-2">
-                            <span style="text-decoration-line: underline; background-color: #6ec6d9; color:white;"
-                                class="p-2 mt-2" id="ficheSpot">Fiche type : Spip</span>
-                        </div>
-                        @if ($ficheSpips !== 'Aucune fiche Spip')
-                            @foreach ($ficheSpips as $ficheSpip)
-                                <div class="card my-2" style="background-color: #a3d3de;">
-                                    <div class="row ">
-                                        <div class="col-md-12 px-3 py-2">
-                                            <div class="card-block px-3">
-                                                <h4 class="card-title">
-                                                    {{ $ficheSpip->iopa_fiche_type_spip_title }}</h4>
-                                                <p class="card-text">Consectetur adipiscing elit, sed
-                                                    do eiusmod tempor incididunt ut labore et dolore magna
-                                                    aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo consequat. </p>
-                                                <p class="card-text">Duis aute irure dolor in
-                                                    reprehenderit in voluptate velit esse cillum dolore eu
-                                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.</p>
-                                                <a href="#" class="btn btn-primary">Lire la fiche</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <p colspan="9" class="table-active text-center p-2 mt-2"
-                                style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                                {{ $ficheSpips }}</p>
-                        @endif
-                    </div>
+                    @if ($diplomes !== 'Aucune diplôme ?')
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Année(s)</th>
+                                    <th>Nom du diplôme</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($diplomes as $diplome)
+                                    <tr>
+                                        <form action="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}" method="post" id="">
+                                            @csrf
+                                        <td>
+                                            <input type="text" class="form-control" id="diplome"
+                                                placeholder="Nom du diplôme"
+                                                value="{{ $diplome->first()->nameDiplome_individu }}" name="nameDiplome_individu">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="annee" placeholder="Année(s)"
+                                                value="{{ $diplome->first()->anneDiplome_individu }}" name="anneDiplome_individu">
+                                        </td>
+                                        <td class="w-25">
+                                            <span>
+                                                <a
+                                                    href="{{ route('destroyDiplome', $diplome->first()->iopa_IndividuDiplome_id) }}">
+                                                    <button type="button" class="btn btn-danger w-25"
+                                                        data-bs-dismiss="modal">X</button>
+                                                </a></span>
+                                            <span>
+                                                <a
+                                                    href="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}">
+                                                    <button type="submit" class="btn btn-primary w-50" name="diplomeUpdate{{ $diplome->first()->iopa_IndividuDiplome_id }}"
+                                                        value="diplomeupdate{{ $diplome->first()->iopa_IndividuDiplome_id }}">Update</button>
+                                                </a></span>
+                                                
+                                        </td></form>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ $diplomes->links() }}
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $diplomes }}</p>
+                    @endif
+                </div>
             </div>
-            </section>
         </div>
     </div>
+    <div class="col-4"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-12 d-flex">
     <div class="col-md-1"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script>
-    $(document).ready(function() {
-        // Add new row
-        $("#add-row").click(function() {
-            var annee = $("#annee").val();
-            var diplome = $("#diplome").val();
-            $(".table tbody tr").last().after(
-                '<tr class="fadetext">' +
-                '<td><input type="checkbox" id="select-row"></td>' +
-                '<td>' + annee + '</td>' +
-                '<td>' + diplome + '</td>' +
-                '</tr>'
-            );
-        })
+    <div class="col-md-10">
+        <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center experience">
+                <h2 id="FicheAll">Les fiches de {{ $individu->first()->name_individu }}</h2>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Ajouter une fiche</a>
+                        <ul class="dropdown-menu">
+                            @if ($fichePaios !== 'Aucune fiche Paio')
+                                <li><a class="dropdown-item"
+                                        href="ficheCandidate/{{ $fichePaios->first()->iopa_fiche_type_paio_id }}"
+                                        style="background-color: #6e7175 !important;color:white;">PAIO :
+                                        Il existe déja une fiche PAIO</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="ficheCandidate/">PAIO : Fiche de
+                                        suivi Candidat</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="#">Vae : Fiche analyse de demande</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Atelier : Questionaire de
+                                    motivation</a></li>
+                            <li><a class="dropdown-item" href="#">Spot : Fiche d'inscription spot</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            @if ($ficheSpips !== 'Aucune fiche Spip')
+                                <li><a class="dropdown-item"
+                                        href="ficheSuiviSpip/{{ $ficheSpips->first()->iopa_fiche_type_spip_id }}"
+                                        style="background-color: #6e7175 !important;color:white;">SPIP :
+                                        Il existe déja une fiche Spip</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="#">Spip : Fiche de suivi spip</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
+            </div><br>
 
-        // Select all checkbox
-        $("#select-all").click(function() {
-            var isSelected = $(this).is(":checked");
-            if (isSelected) {
-                $(".table tbody tr").each(function() {
-                    $(this).find('input[type="checkbox"]').prop('checked', true);
-                })
-            } else {
-                $(".table tbody tr").each(function() {
-                    $(this).find('input[type="checkbox"]').prop('checked', false);
-                })
-            }
-        });
+            <section>
+                <div class="container py-3">
+                    <div class="p-2">
+                        <span style="text-decoration-line: underline; background-color: #94c123; color:white;"
+                            class="p-2" id="ficheVae">Fiche type : Paio</span>
+                    </div>
+                    @if ($fichePaios !== 'Aucune fiche Paio')
+                        @foreach ($fichePaios as $fichePaio)
+                            <div class="card my-2" style="background-color: #c5d994;">
+                                <div class="row ">
+                                    <div class="col-md-12 px-3 py-2">
+                                        <div class="card-block px-3">
+                                            <h4 class="card-title">
+                                                {{ $fichePaio->iopa_fiche_type_paio_title }}</h4>
+                                            <p class="card-text">Consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut labore et dolore magna
+                                                aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. </p>
+                                            <p class="card-text">Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore eu
+                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                non proident, sunt in culpa qui officia deserunt mollit
+                                                anim id est laborum.</p>
+                                            <a href="#" class="btn btn-primary">Lire la fiche</a>
+                                        </div>
+                                    </div>
 
-        // Remove selected rows
-        $("#remove-row").click(function() {
-            $(".table tbody tr").each(function() {
-                var isChecked = $(this).find('input[type="checkbox"]').is(":checked");
-                var tableSize = $(".table tbody tr").length;
-                if (tableSize == 1) {
-                    alert('All rows cannot be deleted.');
-                } else if (isChecked) {
-                    $(this).remove();
-                }
-            });
-        });
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $fichePaios }}</p>
+                    @endif
+                    <hr class="dropdown-divider">
+                    <div class="p-2">
+                        <span style="text-decoration-line: underline; background-color: #6aa1db; color:white;"
+                            class="p-2" id="ficheVae">Fiche type : Vae</span>
+                    </div>
+                    @if ($ficheVaes !== 'Aucune fiche Vae')
+                        @foreach ($ficheVaes as $ficheVae)
+                            <div class="card my-2" style="background-color: #b7d6f8;">
+                                <div class="row ">
+                                    <div class="col-md-12 px-3 py-2">
+                                        <div class="card-block px-3">
+                                            <h4 class="card-title">
+                                                {{ $ficheVae->iopa_fiche_type_vae_title }}</h4>
+                                            <p class="card-text">Consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut labore et dolore magna
+                                                aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. </p>
+                                            <p class="card-text">Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore eu
+                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                non proident, sunt in culpa qui officia deserunt mollit
+                                                anim id est laborum.</p>
+                                            <a href="{{ $ficheVae->iopa_fiche_type_vae_id }}"
+                                                class="btn btn-primary">Lire la fiche</a>
+                                        </div>
+                                    </div>
 
-    })
-</script>
+                                </div>
+                            </div>
+                        @endforeach
+                        {{ $ficheVaes->links() }}
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $ficheVaes }}</p>
+                    @endif
+                    <hr class="dropdown-divider">
+                    <div class="p-2">
+                        <span style="text-decoration-line: underline; background-color: #f7ab59; color:white;"
+                            class="p-2 mt-2" id="ficheSpot">Fiche type : Atelier</span>
+                    </div>
+                    @if ($ficheAteliers !== 'Aucune fiche Atelier')
+                        @foreach ($ficheAteliers as $ficheAtelier)
+                            <div class="card my-2" style="background-color: #e3b482;">
+                                <div class="row ">
+                                    <div class="col-md-12 px-3 py-2">
+                                        <div class="card-block px-3">
+                                            <h4 class="card-title">
+                                                {{ $ficheAtelier->iopa_fiche_type_atelier_title }}</h4>
+                                            <p class="card-text">Consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut labore et dolore magna
+                                                aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. </p>
+                                            <p class="card-text">Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore eu
+                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                non proident, sunt in culpa qui officia deserunt mollit
+                                                anim id est laborum.</p>
+                                            <a href="{{ $ficheAtelier->iopa_fiche_type_atelier_id }}"
+                                                class="btn btn-primary">Lire la fiche</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                        {{ $ficheAteliers->links() }}
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $ficheAteliers }}</p>
+                    @endif
+                    <hr class="dropdown-divider">
+                    <div class="p-2">
+                        <span style="text-decoration-line: underline; background-color: #b12036; color:white;"
+                            class="p-2 mt-2" id="ficheSpot">Fiche type : Spot</span>
+                    </div>
+                    @if ($ficheSpots !== 'Aucune fiche Spot')
+                        @foreach ($ficheSpots as $ficheSpot)
+                            <div class="card my-2" style="background-color: #d47584;">
+                                <div class="row ">
+                                    <div class="col-md-12 px-3 py-2">
+                                        <div class="card-block px-3">
+                                            <h4 class="card-title">
+                                                {{ $ficheSpot->iopa_fiche_type_spot_title }}</h4>
+                                            <p class="card-text">Consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut labore et dolore magna
+                                                aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. </p>
+                                            <p class="card-text">Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore eu
+                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                non proident, sunt in culpa qui officia deserunt mollit
+                                                anim id est laborum.</p>
+                                            <a href="{{ $ficheSpot->iopa_fiche_type_spot_id }}"
+                                                class="btn btn-primary">Lire la fiche</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                        {{ $ficheSpots->links() }}
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $ficheSpots }}</p>
+                    @endif
+                    <hr class="dropdown-divider">
+                    <div class="p-2">
+                        <span style="text-decoration-line: underline; background-color: #6ec6d9; color:white;"
+                            class="p-2 mt-2" id="ficheSpot">Fiche type : Spip</span>
+                    </div>
+                    @if ($ficheSpips !== 'Aucune fiche Spip')
+                        @foreach ($ficheSpips as $ficheSpip)
+                            <div class="card my-2" style="background-color: #a3d3de;">
+                                <div class="row ">
+                                    <div class="col-md-12 px-3 py-2">
+                                        <div class="card-block px-3">
+                                            <h4 class="card-title">
+                                                {{ $ficheSpip->iopa_fiche_type_spip_title }}</h4>
+                                            <p class="card-text">Consectetur adipiscing elit, sed
+                                                do eiusmod tempor incididunt ut labore et dolore magna
+                                                aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. </p>
+                                            <p class="card-text">Duis aute irure dolor in
+                                                reprehenderit in voluptate velit esse cillum dolore eu
+                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                                non proident, sunt in culpa qui officia deserunt mollit
+                                                anim id est laborum.</p>
+                                            <a href="#" class="btn btn-primary">Lire la fiche</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p colspan="9" class="table-active text-center p-2 mt-2"
+                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                            {{ $ficheSpips }}</p>
+                    @endif
+                </div>
+        </div>
+        </section>
+    </div>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 @endsection
