@@ -9,11 +9,14 @@
     <script src="{{ asset('js/hommePage.js') }}"></script> 
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   
     <!-- Ico -->
     <link rel="shortcut icon" href="{{ asset('images/giep-nc.ico') }}">
     <!-- Styles -->  
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Table.css') }}" rel="stylesheet">   
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">    
     <style>
         html {

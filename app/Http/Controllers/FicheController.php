@@ -295,7 +295,27 @@ class FicheController extends Controller
         $postalAdresse_individu = $request->input('postalAdresse_individu');
         $email_individu = $request->input('email_individu');
         $situationProStatu_individu = $request->input('situationProStatu_individu');
-        // dd($familyStatus_individu);
+        $chomageDemendeur_individu = $request->input('chomageDemendeur_individu');
+        $chomageDemendeurPeriodeDeb_individu = $request->input('chomageDemendeurPeriodeDeb_individu');
+        $chomageDemendeurPeriodeFin_individu = $request->input('chomageDemendeurPeriodeFin_individu');
+        $validiterCafat_individu = $request->input('validiterCafat_individu');
+        $validiterAidemedical_individu = $request->input('validiterAidemedical_individu');
+        $travailleurHandicaper_individu = $request->input('travailleurHandicaper_individu');
+        // dd($request);
+
+        // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
+        if ($chomageDemendeur_individu === null) {
+            $chomageDemendeur_individu = 'non-définie';
+        }
+        if ($chomageDemendeur_individu === 'non' || $chomageDemendeur_individu === 'non-définie') {
+            $chomageDemendeurPeriodeDeb_individu = 'non-définie';
+            $chomageDemendeurPeriodeFin_individu = 'non-définie';
+        }
+        if ($chomageDemendeurPeriodeDeb_individu === null || $chomageDemendeurPeriodeFin_individu === null) {            
+            $chomageDemendeurPeriodeDeb_individu = 'non-définie';
+            $chomageDemendeurPeriodeFin_individu = 'non-définie';
+        }
+        // dd($chomageDemendeurPeriodeDeb_individu);
 
         Individu::where('iopa_individu_id',$id)->update(
             ['name_individu'=>$name_individu,
@@ -313,7 +333,14 @@ class FicheController extends Controller
             'quartier_individu'=>$quartier_individu,
             'postalAdresse_individu'=>$postalAdresse_individu,
             'email_individu'=>$email_individu,
-            'situationProStatu_individu'=>$situationProStatu_individu
+            'situationProStatu_individu'=>$situationProStatu_individu,
+            'chomageDemendeur_individu'=>$chomageDemendeur_individu,
+            'chomageDemendeurPeriodeDeb_individu'=>$chomageDemendeurPeriodeDeb_individu,
+            'chomageDemendeurPeriodeFin_individu'=>$chomageDemendeurPeriodeFin_individu,
+            'validiterCafat_individu'=>$validiterCafat_individu,
+            'validiterAidemedical_individu'=>$validiterAidemedical_individu,
+            'travailleurHandicaper_individu'=>$travailleurHandicaper_individu
+
         ]);
         return back();
     }
