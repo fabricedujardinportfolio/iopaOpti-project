@@ -587,371 +587,556 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" text-center mt-3 mb-4">
-                                    <button class="btn btn-primary profile-button" type="submit" name="profile"
-                                        value="profile">
-                                        Enregistrer le profil</button>
-                                </div>
-
-                                <hr class="mb-1">
-                                <div class="col-md-12 mb-1">
+                                <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-5" style="align-self: center;">
-                                            <label class="form-check-label" for="DernierClasse"
-                                                id="dernierClasse">Dernière classe ou dernière formation suivie (date)
-                                                :</label>
+                                        <label class="form-check-label mt-2">
+                                            Autre informations :
+                                        </label>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-12" style="align-self:center;">
+                                                            <label class="form-check-label">
+                                                                Inscription demandeur d'emploi :
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-7 d-md-flex">
+                                                            <div class="form-check mx-2 col-md-5">
+                                                                <label class="form-check-label"
+                                                                    for="inscriptionDemendeurEmploi_individu">
+                                                                    oui
+                                                                </label>
+                                                                @if ($individu->first()->inscriptionDemendeurEmploi_individu !== 'non-définie')
+                                                                    @if ($individu->first()->inscriptionDemendeurEmploi_individu === 'oui')
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inscriptionDemendeurEmploi_individu"
+                                                                            id="inscriptionDemendeurEmploi_individu"
+                                                                            value="oui" checked>
+                                                                    @else
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inscriptionDemendeurEmploi_individu"
+                                                                            id="inscriptionDemendeurEmploi_individu"
+                                                                            value="oui">
+                                                                    @endif
+                                                                @else
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="inscriptionDemendeurEmploi_individu"
+                                                                        id="inscriptionDemendeurEmploi_individu"
+                                                                        value="oui">
+                                                                @endauth
+                                                        </div>
+                                                        <div class="form-check mx-2 col-md-5">
+                                                            <label class="form-check-label"
+                                                                for="inscriptionDemendeurEmploi_individunon">
+                                                                non
+                                                            </label>
+                                                            @if ($individu->first()->inscriptionDemendeurEmploi_individu !== 'non-définie')
+                                                                @if ($individu->first()->inscriptionDemendeurEmploi_individu === 'non')
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="inscriptionDemendeurEmploi_individu"
+                                                                        id="inscriptionDemendeurEmploi_individunon"
+                                                                        value="non" checked>
+                                                                @else
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="inscriptionDemendeurEmploi_individu"
+                                                                        id="inscriptionDemendeurEmploi_individunon"
+                                                                        value="non">
+                                                                @endif
+                                                            @else
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="inscriptionDemendeurEmploi_individu"
+                                                                    id="inscriptionDemendeurEmploi_individunon"
+                                                                    value="non" checked>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-check mx-2 col-md-5">
+                                                            <label class="form-check-label"
+                                                                for="inscriptionDemendeurEmploi_individuEncours">
+                                                                En cours
+                                                            </label>
+                                                            @if ($individu->first()->inscriptionDemendeurEmploi_individu !== 'non-définie')
+                                                                @if ($individu->first()->inscriptionDemendeurEmploi_individu === 'encours')
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="inscriptionDemendeurEmploi_individu"
+                                                                        id="inscriptionDemendeurEmploi_individuEncours"
+                                                                        value="encours" checked>
+                                                                @else
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="inscriptionDemendeurEmploi_individu"
+                                                                        id="inscriptionDemendeurEmploi_individuEncours"
+                                                                        value="encours">
+                                                                @endif
+                                                            @else
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="inscriptionDemendeurEmploi_individu"
+                                                                    id="inscriptionDemendeurEmploi_individuEncours"
+                                                                    value="encours">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-12" style="align-self:center;">
+                                                        <label class="form-check-label">
+                                                            Permis de conduire :
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-7 d-md-flex">
+                                                        <div class="form-check mx-2 col-md-5">
+                                                            <label class="form-check-label"
+                                                                for="permisDeConduire_individu">
+                                                                oui
+                                                            </label>
+                                                            @if ($individu->first()->permisDeConduire_individu !== 'non-définie')
+                                                                @if ($individu->first()->permisDeConduire_individu === 'oui')
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="permisDeConduire_individu"
+                                                                        id="permisDeConduire_individu"
+                                                                        value="oui" checked>
+                                                                @else
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="permisDeConduire_individu"
+                                                                        id="permisDeConduire_individu"
+                                                                        value="oui">
+                                                                @endif
+                                                            @else
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="permisDeConduire_individu"
+                                                                    id="permisDeConduire_individu"
+                                                                    value="oui">
+                                                            @endauth
+                                                    </div>
+                                                    <div class="form-check mx-2 col-md-5">
+                                                        <label class="form-check-label"
+                                                            for="permisDeConduire_individunon">
+                                                            non
+                                                        </label>
+                                                        @if ($individu->first()->permisDeConduire_individu !== 'non-définie')
+                                                            @if ($individu->first()->permisDeConduire_individu === 'non')
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="permisDeConduire_individu"
+                                                                    id="permisDeConduire_individunon"
+                                                                    value="non" checked>
+                                                            @else
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="permisDeConduire_individu"
+                                                                    id="permisDeConduire_individunon"
+                                                                    value="non">
+                                                            @endif
+                                                        @else
+                                                            <input class="form-check-input" type="radio"
+                                                                name="permisDeConduire_individu"
+                                                                id="permisDeConduire_individunon"
+                                                                value="non" checked>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-check mx-2 col-md-5">
+                                                        <label class="form-check-label"
+                                                            for="permisDeConduire_individuEncours">
+                                                            En cours
+                                                        </label>
+                                                        @if ($individu->first()->permisDeConduire_individu !== 'non-définie')
+                                                            @if ($individu->first()->permisDeConduire_individu === 'encours')
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="permisDeConduire_individu"
+                                                                    id="permisDeConduire_individuEncours"
+                                                                    value="encours" checked>
+                                                            @else
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="permisDeConduire_individu"
+                                                                    id="permisDeConduire_individuEncours"
+                                                                    value="encours">
+                                                            @endif
+                                                        @else
+                                                            <input class="form-check-input" type="radio"
+                                                                name="permisDeConduire_individu"
+                                                                id="permisDeConduire_individuEncours"
+                                                                value="encours">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-9" style="align-self: center;">
+                                                <div class="row">
+                                                    <div class="col-md-7" style="align-self: center;">
+                                                        <label class="form-check-label" for="DernierClasse"
+                                                            id="dernierClasse">Dernière classe ou dernière formation
+                                                            suivie (date)
+                                                            :</label>
+                                                    </div>
 
-                                        <div class="col-md-7">
-                                            <input type="text" class="form-control"
-                                                placeholder="entrer un code postal"
-                                                value="{{ $individu->first()->formationNiveauScolaire_individu }}"
-                                                name="formationNiveauScolaire_individu" required>
+                                                    <div class="col-md-5">
+                                                        <input type="text" class="form-control"
+                                                            id="dernierClasse" placeholder="entrer un code postal"
+                                                            value="{{ $individu->first()->formationNiveauScolaire_individu }}"
+                                                            name="formationNiveauScolaire_individu" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 text-end mt-3 mb-4">
+                                                <button class="btn btn-primary profile-button" type="submit"
+                                                    name="profile" value="profile">
+                                                    Enregistrer le profil
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-            </form>
-            <div class="col-md-12 mt-1">
-                <div class="col-md-12 mb-2">
-                    <label class="form-check-label" style="vertical-align: middle;">
-                        <strong class="h4">Parcours scolaire et formations :</strong>
-                    </label>
-                    <button type="button" id="formDiplome" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        Rajouter un diplôme
-                    </button>
+                                    <hr class="mb-1">
+                                    <div class="col-md-12 mb-1">
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Diplôme
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <form action="{{ route('updateFiche', $individu->first()->iopa_individu_id) }}"
-                                    method="post" id="form">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <input type="text" class="form-control" id="diplome"
-                                            name="anneDiplome_individu" placeholder="Nom du diplôme" required>
-                                        <input type="text" class="form-control my-1" id="annee" placeholder="Année(s)"
-                                            name="nameDiplome_individu" required>
-                                        <input type="text" class="form-control my-1 d-none" id="annee"
-                                            placeholder="Année(s)" name="iopa_individu_id"
-                                            value="{{ $individu->first()->iopa_individu_id }}" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <button type="submit" class="btn btn-primary" name="diplome"
-                                            value="diplome">Sauvegarder</button>
                                     </div>
 
-                                </form>
+        </form>
+        <div class="col-md-12 mt-1">
+            <div class="col-md-12 mb-2">
+                <label class="form-check-label" style="vertical-align: middle;">
+                    <strong class="h4">Parcours scolaire et formations :</strong>
+                </label>
+                <button type="button" id="formDiplome" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Rajouter un diplôme
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Diplôme
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
+                            <form action="{{ route('updateFiche', $individu->first()->iopa_individu_id) }}"
+                                method="post" id="form">
+                                @csrf
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" id="diplome"
+                                        name="anneDiplome_individu" placeholder="Nom du diplôme" required>
+                                    <input type="text" class="form-control my-1" id="annee" placeholder="Année(s)"
+                                        name="nameDiplome_individu" required>
+                                    <input type="text" class="form-control my-1 d-none" id="annee"
+                                        placeholder="Année(s)" name="iopa_individu_id"
+                                        value="{{ $individu->first()->iopa_individu_id }}" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-primary" name="diplome"
+                                        value="diplome">Sauvegarder</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
 
-                    @if ($diplomes !== 'Aucune diplôme ?')
-                        <table class="table">
-                            <thead>
+                @if ($diplomes !== 'Aucune diplôme ?')
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Année(s)</th>
+                                <th>Nom du diplôme</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($diplomes as $diplome)
                                 <tr>
-                                    <th>Année(s)</th>
-                                    <th>Nom du diplôme</th>
-                                    <th>Action</th>
+                                    <form
+                                        action="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}"
+                                        method="post" id="">
+                                        @csrf
+                                        <td>
+                                            <input type="text" class="form-control" id="diplome"
+                                                placeholder="Nom du diplôme"
+                                                value="{{ $diplome->nameDiplome_individu }}"
+                                                name="nameDiplome_individu">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="annee"
+                                                placeholder="Année(s)"
+                                                value="{{ $diplome->anneDiplome_individu }}"
+                                                name="anneDiplome_individu">
+                                        </td>
+                                        <td class="w-25">
+                                            <span>
+                                                <a href="{{ route('destroyDiplome', $diplome->iopa_IndividuDiplome_id) }}"
+                                                    style="text-decoration: none;">
+                                                    <button type="button" class="btn btn-danger w-25"
+                                                        data-bs-dismiss="modal">X</button>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="{{ route('updateDiplomeFiche', $diplome->iopa_IndividuDiplome_id) }}"
+                                                    style="text-decoration: none;">
+                                                    <button type="submit" class="btn btn-primary w-50"
+                                                        name="diplomeUpdate{{ $diplome->iopa_IndividuDiplome_id }}"
+                                                        value="diplomeupdate{{ $diplome->iopa_IndividuDiplome_id }}">actualiser</button>
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </form>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($diplomes as $diplome)
-                                    <tr>
-                                        <form
-                                            action="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}"
-                                            method="post" id="">
-                                            @csrf
-                                            <td>
-                                                <input type="text" class="form-control" id="diplome"
-                                                    placeholder="Nom du diplôme"
-                                                    value="{{ $diplome->nameDiplome_individu }}"
-                                                    name="nameDiplome_individu">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" id="annee"
-                                                    placeholder="Année(s)"
-                                                    value="{{ $diplome->anneDiplome_individu }}"
-                                                    name="anneDiplome_individu">
-                                            </td>
-                                            <td class="w-25">
-                                                <span>
-                                                    <a
-                                                        href="{{ route('destroyDiplome', $diplome->first()->iopa_IndividuDiplome_id) }}">
-                                                        <button type="button" class="btn btn-danger w-25"
-                                                            data-bs-dismiss="modal">X</button>
-                                                    </a></span>
-                                                <span>
-                                                    <a
-                                                        href="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}">
-                                                        <button type="submit" class="btn btn-primary w-50"
-                                                            name="diplomeUpdate{{ $diplome->first()->iopa_IndividuDiplome_id }}"
-                                                            value="diplomeupdate{{ $diplome->first()->iopa_IndividuDiplome_id }}">Update</button>
-                                                    </a></span>
-
-                                            </td>
-                                        </form>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {{ $diplomes->links() }}
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $diplomes }}</p>
-                    @endif
-                </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $diplomes->links() }}
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $diplomes }}</p>
+                @endif
             </div>
         </div>
     </div>
-    <div class="col-4"></div>
+</div>
+<div class="col-4"></div>
 </div>
 </div>
 </div>
 </div>
 <div class="col-md-12 d-flex">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div class="p-3 py-5">
-            <div class="d-flex justify-content-between align-items-center experience">
-                <h2 id="FicheAll">Les fiches de {{ $individu->first()->name_individu }}</h2>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                            aria-expanded="false">Ajouter une fiche</a>
-                        <ul class="dropdown-menu">
-                            @if ($fichePaios !== 'Aucune fiche Paio')
-                                <li><a class="dropdown-item"
-                                        href="ficheCandidate/{{ $fichePaios->first()->iopa_fiche_type_paio_id }}"
-                                        style="background-color: #6e7175 !important;color:white;">PAIO :
-                                        Il existe déja une fiche PAIO</a></li>
-                            @else
-                                <li><a class="dropdown-item" href="ficheCandidate/">PAIO : Fiche de
-                                        suivi Candidat</a></li>
-                            @endif
-                            <li><a class="dropdown-item" href="#">Vae : Fiche analyse de demande</a>
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center experience">
+            <h2 id="FicheAll">Les fiches de {{ $individu->first()->name_individu }}</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                        aria-expanded="false">Ajouter une fiche</a>
+                    <ul class="dropdown-menu">
+                        @if ($fichePaios !== 'Aucune fiche Paio')
+                            <li><a class="dropdown-item"
+                                    href="ficheCandidate/{{ $fichePaios->first()->iopa_fiche_type_paio_id }}"
+                                    style="background-color: #6e7175 !important;color:white;">PAIO :
+                                    Il existe déja une fiche PAIO</a></li>
+                        @else
+                            <li><a class="dropdown-item" href="ficheCandidate/">PAIO : Fiche de
+                                    suivi Candidat</a></li>
+                        @endif
+                        <li><a class="dropdown-item" href="#">Vae : Fiche analyse de demande</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Atelier : Questionaire de
+                                motivation</a></li>
+                        <li><a class="dropdown-item" href="#">Spot : Fiche d'inscription spot</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        @if ($ficheSpips !== 'Aucune fiche Spip')
+                            <li><a class="dropdown-item"
+                                    href="ficheSuiviSpip/{{ $ficheSpips->first()->iopa_fiche_type_spip_id }}"
+                                    style="background-color: #6e7175 !important;color:white;">SPIP :
+                                    Il existe déja une fiche Spip</a></li>
+                        @else
+                            <li><a class="dropdown-item" href="#">Spip : Fiche de suivi spip</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Atelier : Questionaire de
-                                    motivation</a></li>
-                            <li><a class="dropdown-item" href="#">Spot : Fiche d'inscription spot</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            @if ($ficheSpips !== 'Aucune fiche Spip')
-                                <li><a class="dropdown-item"
-                                        href="ficheSuiviSpip/{{ $ficheSpips->first()->iopa_fiche_type_spip_id }}"
-                                        style="background-color: #6e7175 !important;color:white;">SPIP :
-                                        Il existe déja une fiche Spip</a></li>
-                            @else
-                                <li><a class="dropdown-item" href="#">Spip : Fiche de suivi spip</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                </ul>
-            </div><br>
+                        @endif
+                    </ul>
+                </li>
+            </ul>
+        </div><br>
 
-            <section>
-                <div class="container py-3">
-                    <div class="p-2">
-                        <span style="text-decoration-line: underline; background-color: #94c123; color:white;"
-                            class="p-2" id="ficheVae">Fiche type : Paio</span>
-                    </div>
-                    @if ($fichePaios !== 'Aucune fiche Paio')
-                        @foreach ($fichePaios as $fichePaio)
-                            <div class="card my-2" style="background-color: #c5d994;">
-                                <div class="row ">
-                                    <div class="col-md-12 px-3 py-2">
-                                        <div class="card-block px-3">
-                                            <h4 class="card-title">
-                                                {{ $fichePaio->iopa_fiche_type_paio_title }}</h4>
-                                            <p class="card-text">Consectetur adipiscing elit, sed
-                                                do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. </p>
-                                            <p class="card-text">Duis aute irure dolor in
-                                                reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit
-                                                anim id est laborum.</p>
-                                            <a href="#" class="btn btn-primary">Lire la fiche</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $fichePaios }}</p>
-                    @endif
-                    <hr class="dropdown-divider">
-                    <div class="p-2">
-                        <span style="text-decoration-line: underline; background-color: #6aa1db; color:white;"
-                            class="p-2" id="ficheVae">Fiche type : Vae</span>
-                    </div>
-                    @if ($ficheVaes !== 'Aucune fiche Vae')
-                        @foreach ($ficheVaes as $ficheVae)
-                            <div class="card my-2" style="background-color: #b7d6f8;">
-                                <div class="row ">
-                                    <div class="col-md-12 px-3 py-2">
-                                        <div class="card-block px-3">
-                                            <h4 class="card-title">
-                                                {{ $ficheVae->iopa_fiche_type_vae_title }}</h4>
-                                            <p class="card-text">Consectetur adipiscing elit, sed
-                                                do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. </p>
-                                            <p class="card-text">Duis aute irure dolor in
-                                                reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit
-                                                anim id est laborum.</p>
-                                            <a href="{{ $ficheVae->iopa_fiche_type_vae_id }}"
-                                                class="btn btn-primary">Lire la fiche</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                        {{ $ficheVaes->links() }}
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $ficheVaes }}</p>
-                    @endif
-                    <hr class="dropdown-divider">
-                    <div class="p-2">
-                        <span style="text-decoration-line: underline; background-color: #f7ab59; color:white;"
-                            class="p-2 mt-2" id="ficheSpot">Fiche type : Atelier</span>
-                    </div>
-                    @if ($ficheAteliers !== 'Aucune fiche Atelier')
-                        @foreach ($ficheAteliers as $ficheAtelier)
-                            <div class="card my-2" style="background-color: #e3b482;">
-                                <div class="row ">
-                                    <div class="col-md-12 px-3 py-2">
-                                        <div class="card-block px-3">
-                                            <h4 class="card-title">
-                                                {{ $ficheAtelier->iopa_fiche_type_atelier_title }}</h4>
-                                            <p class="card-text">Consectetur adipiscing elit, sed
-                                                do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. </p>
-                                            <p class="card-text">Duis aute irure dolor in
-                                                reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit
-                                                anim id est laborum.</p>
-                                            <a href="{{ $ficheAtelier->iopa_fiche_type_atelier_id }}"
-                                                class="btn btn-primary">Lire la fiche</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                        {{ $ficheAteliers->links() }}
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $ficheAteliers }}</p>
-                    @endif
-                    <hr class="dropdown-divider">
-                    <div class="p-2">
-                        <span style="text-decoration-line: underline; background-color: #b12036; color:white;"
-                            class="p-2 mt-2" id="ficheSpot">Fiche type : Spot</span>
-                    </div>
-                    @if ($ficheSpots !== 'Aucune fiche Spot')
-                        @foreach ($ficheSpots as $ficheSpot)
-                            <div class="card my-2" style="background-color: #d47584;">
-                                <div class="row ">
-                                    <div class="col-md-12 px-3 py-2">
-                                        <div class="card-block px-3">
-                                            <h4 class="card-title">
-                                                {{ $ficheSpot->iopa_fiche_type_spot_title }}</h4>
-                                            <p class="card-text">Consectetur adipiscing elit, sed
-                                                do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. </p>
-                                            <p class="card-text">Duis aute irure dolor in
-                                                reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit
-                                                anim id est laborum.</p>
-                                            <a href="{{ $ficheSpot->iopa_fiche_type_spot_id }}"
-                                                class="btn btn-primary">Lire la fiche</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                        {{ $ficheSpots->links() }}
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $ficheSpots }}</p>
-                    @endif
-                    <hr class="dropdown-divider">
-                    <div class="p-2">
-                        <span style="text-decoration-line: underline; background-color: #6ec6d9; color:white;"
-                            class="p-2 mt-2" id="ficheSpot">Fiche type : Spip</span>
-                    </div>
-                    @if ($ficheSpips !== 'Aucune fiche Spip')
-                        @foreach ($ficheSpips as $ficheSpip)
-                            <div class="card my-2" style="background-color: #a3d3de;">
-                                <div class="row ">
-                                    <div class="col-md-12 px-3 py-2">
-                                        <div class="card-block px-3">
-                                            <h4 class="card-title">
-                                                {{ $ficheSpip->iopa_fiche_type_spip_title }}</h4>
-                                            <p class="card-text">Consectetur adipiscing elit, sed
-                                                do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua. Ut enim ad minim veniam, quis nostrud
-                                                exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. </p>
-                                            <p class="card-text">Duis aute irure dolor in
-                                                reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                                non proident, sunt in culpa qui officia deserunt mollit
-                                                anim id est laborum.</p>
-                                            <a href="#" class="btn btn-primary">Lire la fiche</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <p colspan="9" class="table-active text-center p-2 mt-2"
-                            style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
-                            {{ $ficheSpips }}</p>
-                    @endif
+        <section>
+            <div class="container py-3">
+                <div class="p-2">
+                    <span style="text-decoration-line: underline; background-color: #94c123; color:white;"
+                        class="p-2" id="ficheVae">Fiche type : Paio</span>
                 </div>
-        </div>
-        </section>
+                @if ($fichePaios !== 'Aucune fiche Paio')
+                    @foreach ($fichePaios as $fichePaio)
+                        <div class="card my-2" style="background-color: #c5d994;">
+                            <div class="row ">
+                                <div class="col-md-12 px-3 py-2">
+                                    <div class="card-block px-3">
+                                        <h4 class="card-title">
+                                            {{ $fichePaio->iopa_fiche_type_paio_title }}</h4>
+                                        <p class="card-text">Consectetur adipiscing elit, sed
+                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud
+                                            exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. </p>
+                                        <p class="card-text">Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit
+                                            anim id est laborum.</p>
+                                        <a href="#" class="btn btn-primary">Lire la fiche</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $fichePaios }}</p>
+                @endif
+                <hr class="dropdown-divider">
+                <div class="p-2">
+                    <span style="text-decoration-line: underline; background-color: #6aa1db; color:white;"
+                        class="p-2" id="ficheVae">Fiche type : Vae</span>
+                </div>
+                @if ($ficheVaes !== 'Aucune fiche Vae')
+                    @foreach ($ficheVaes as $ficheVae)
+                        <div class="card my-2" style="background-color: #b7d6f8;">
+                            <div class="row ">
+                                <div class="col-md-12 px-3 py-2">
+                                    <div class="card-block px-3">
+                                        <h4 class="card-title">
+                                            {{ $ficheVae->iopa_fiche_type_vae_title }}</h4>
+                                        <p class="card-text">Consectetur adipiscing elit, sed
+                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud
+                                            exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. </p>
+                                        <p class="card-text">Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit
+                                            anim id est laborum.</p>
+                                        <a href="{{ $ficheVae->iopa_fiche_type_vae_id }}"
+                                            class="btn btn-primary">Lire la fiche</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                    {{ $ficheVaes->links() }}
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $ficheVaes }}</p>
+                @endif
+                <hr class="dropdown-divider">
+                <div class="p-2">
+                    <span style="text-decoration-line: underline; background-color: #f7ab59; color:white;"
+                        class="p-2 mt-2" id="ficheSpot">Fiche type : Atelier</span>
+                </div>
+                @if ($ficheAteliers !== 'Aucune fiche Atelier')
+                    @foreach ($ficheAteliers as $ficheAtelier)
+                        <div class="card my-2" style="background-color: #e3b482;">
+                            <div class="row ">
+                                <div class="col-md-12 px-3 py-2">
+                                    <div class="card-block px-3">
+                                        <h4 class="card-title">
+                                            {{ $ficheAtelier->iopa_fiche_type_atelier_title }}</h4>
+                                        <p class="card-text">Consectetur adipiscing elit, sed
+                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud
+                                            exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. </p>
+                                        <p class="card-text">Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit
+                                            anim id est laborum.</p>
+                                        <a href="{{ $ficheAtelier->iopa_fiche_type_atelier_id }}"
+                                            class="btn btn-primary">Lire la fiche</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                    {{ $ficheAteliers->links() }}
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $ficheAteliers }}</p>
+                @endif
+                <hr class="dropdown-divider">
+                <div class="p-2">
+                    <span style="text-decoration-line: underline; background-color: #b12036; color:white;"
+                        class="p-2 mt-2" id="ficheSpot">Fiche type : Spot</span>
+                </div>
+                @if ($ficheSpots !== 'Aucune fiche Spot')
+                    @foreach ($ficheSpots as $ficheSpot)
+                        <div class="card my-2" style="background-color: #d47584;">
+                            <div class="row ">
+                                <div class="col-md-12 px-3 py-2">
+                                    <div class="card-block px-3">
+                                        <h4 class="card-title">
+                                            {{ $ficheSpot->iopa_fiche_type_spot_title }}</h4>
+                                        <p class="card-text">Consectetur adipiscing elit, sed
+                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud
+                                            exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. </p>
+                                        <p class="card-text">Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit
+                                            anim id est laborum.</p>
+                                        <a href="{{ $ficheSpot->iopa_fiche_type_spot_id }}"
+                                            class="btn btn-primary">Lire la fiche</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                    {{ $ficheSpots->links() }}
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $ficheSpots }}</p>
+                @endif
+                <hr class="dropdown-divider">
+                <div class="p-2">
+                    <span style="text-decoration-line: underline; background-color: #6ec6d9; color:white;"
+                        class="p-2 mt-2" id="ficheSpot">Fiche type : Spip</span>
+                </div>
+                @if ($ficheSpips !== 'Aucune fiche Spip')
+                    @foreach ($ficheSpips as $ficheSpip)
+                        <div class="card my-2" style="background-color: #a3d3de;">
+                            <div class="row ">
+                                <div class="col-md-12 px-3 py-2">
+                                    <div class="card-block px-3">
+                                        <h4 class="card-title">
+                                            {{ $ficheSpip->iopa_fiche_type_spip_title }}</h4>
+                                        <p class="card-text">Consectetur adipiscing elit, sed
+                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua. Ut enim ad minim veniam, quis nostrud
+                                            exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. </p>
+                                        <p class="card-text">Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu
+                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit
+                                            anim id est laborum.</p>
+                                        <a href="#" class="btn btn-primary">Lire la fiche</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <p colspan="9" class="table-active text-center p-2 mt-2"
+                        style="border: 1px solid darkgreen; background-color: #6e7175 !important;color:white;padding:5px;">
+                        {{ $ficheSpips }}</p>
+                @endif
+            </div>
     </div>
+    </section>
+</div>
 </div>
 <div class="col-md-1"></div>
 </div>

@@ -20,6 +20,7 @@ class Individu extends Model
         'dateofBirth_individu',
         'regionBirth_individu',
         'age_individu',
-        'familyStatus_individu'
+        'familyStatus_individu',
+        'permisDeConduire_individu'
     ];
 }

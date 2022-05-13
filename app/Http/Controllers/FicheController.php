@@ -322,6 +322,8 @@ class FicheController extends Controller
             $validiterAidemedical_individu = $request->input('validiterAidemedical_individu');
             $travailleurHandicaper_individu = $request->input('travailleurHandicaper_individu');
             $formationNiveauScolaire_individu = $request->input('formationNiveauScolaire_individu');
+            $inscriptionDemendeurEmploi_individu = $request->input('inscriptionDemendeurEmploi_individu');
+            $permisDeConduire_individu = $request->input('permisDeConduire_individu');
             // dd($request);
 
             // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
@@ -362,8 +364,9 @@ class FicheController extends Controller
                     'validiterCafat_individu' => $validiterCafat_individu,
                     'validiterAidemedical_individu' => $validiterAidemedical_individu,
                     'travailleurHandicaper_individu' => $travailleurHandicaper_individu,
-                    'formationNiveauScolaire_individu'=>$formationNiveauScolaire_individu
-
+                    'formationNiveauScolaire_individu'=>$formationNiveauScolaire_individu,
+                    'inscriptionDemendeurEmploi_individu'=>$inscriptionDemendeurEmploi_individu,
+                    'permisDeConduire_individu'=>$permisDeConduire_individu
                 ]
             );
                         
