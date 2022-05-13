@@ -188,7 +188,7 @@
                                             name="dependentChildren_individu" required>
                                     </div>
                                 </div>
-                                <div class="row" >
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-12"><label class="labels">Adresse :
                                                 1</label><input type="text" class="form-control"
@@ -593,8 +593,25 @@
                                         Enregistrer le profil</button>
                                 </div>
 
+                                <hr class="mb-1">
+                                <div class="col-md-12 mb-1">
+                                    <div class="row">
+                                        <div class="col-md-5" style="align-self: center;">
+                                            <label class="form-check-label" for="DernierClasse"
+                                                id="dernierClasse">Dernière classe ou dernière formation suivie (date)
+                                                :</label>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control"
+                                                placeholder="entrer un code postal"
+                                                value="{{ $individu->first()->formationNiveauScolaire_individu }}"
+                                                name="formationNiveauScolaire_individu" required>
+                                        </div>
+                                    </div>
+                                </div>
+
             </form>
-            <hr class="mb-1">
             <div class="col-md-12 mt-1">
                 <div class="col-md-12 mb-2">
                     <label class="form-check-label" style="vertical-align: middle;">
@@ -640,7 +657,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" >
+                <div class="col-md-12">
 
                     @if ($diplomes !== 'Aucune diplôme ?')
                         <table class="table">
@@ -654,32 +671,39 @@
                             <tbody>
                                 @foreach ($diplomes as $diplome)
                                     <tr>
-                                        <form action="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}" method="post" id="">
+                                        <form
+                                            action="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}"
+                                            method="post" id="">
                                             @csrf
-                                        <td>
-                                            <input type="text" class="form-control" id="diplome"
-                                                placeholder="Nom du diplôme"
-                                                value="{{ $diplome->first()->nameDiplome_individu }}" name="nameDiplome_individu">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="annee" placeholder="Année(s)"
-                                                value="{{ $diplome->first()->anneDiplome_individu }}" name="anneDiplome_individu">
-                                        </td>
-                                        <td class="w-25">
-                                            <span>
-                                                <a
-                                                    href="{{ route('destroyDiplome', $diplome->first()->iopa_IndividuDiplome_id) }}">
-                                                    <button type="button" class="btn btn-danger w-25"
-                                                        data-bs-dismiss="modal">X</button>
-                                                </a></span>
-                                            <span>
-                                                <a
-                                                    href="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}">
-                                                    <button type="submit" class="btn btn-primary w-50" name="diplomeUpdate{{ $diplome->first()->iopa_IndividuDiplome_id }}"
-                                                        value="diplomeupdate{{ $diplome->first()->iopa_IndividuDiplome_id }}">Update</button>
-                                                </a></span>
-                                                
-                                        </td></form>
+                                            <td>
+                                                <input type="text" class="form-control" id="diplome"
+                                                    placeholder="Nom du diplôme"
+                                                    value="{{ $diplome->nameDiplome_individu }}"
+                                                    name="nameDiplome_individu">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="annee"
+                                                    placeholder="Année(s)"
+                                                    value="{{ $diplome->anneDiplome_individu }}"
+                                                    name="anneDiplome_individu">
+                                            </td>
+                                            <td class="w-25">
+                                                <span>
+                                                    <a
+                                                        href="{{ route('destroyDiplome', $diplome->first()->iopa_IndividuDiplome_id) }}">
+                                                        <button type="button" class="btn btn-danger w-25"
+                                                            data-bs-dismiss="modal">X</button>
+                                                    </a></span>
+                                                <span>
+                                                    <a
+                                                        href="{{ route('updateDiplomeFiche', $diplome->first()->iopa_IndividuDiplome_id) }}">
+                                                        <button type="submit" class="btn btn-primary w-50"
+                                                            name="diplomeUpdate{{ $diplome->first()->iopa_IndividuDiplome_id }}"
+                                                            value="diplomeupdate{{ $diplome->first()->iopa_IndividuDiplome_id }}">Update</button>
+                                                    </a></span>
+
+                                            </td>
+                                        </form>
                                     </tr>
                                 @endforeach
                             </tbody>

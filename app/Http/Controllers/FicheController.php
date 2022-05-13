@@ -294,7 +294,7 @@ class FicheController extends Controller
         
         // if ($request->has('profile') === true) {
 
-        // }
+        // // }
         //     dd($request);
         // dd($request->has('profile'));
         if ($request->has('profile') === true) {
@@ -321,6 +321,7 @@ class FicheController extends Controller
             $validiterCafat_individu = $request->input('validiterCafat_individu');
             $validiterAidemedical_individu = $request->input('validiterAidemedical_individu');
             $travailleurHandicaper_individu = $request->input('travailleurHandicaper_individu');
+            $formationNiveauScolaire_individu = $request->input('formationNiveauScolaire_individu');
             // dd($request);
 
             // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
@@ -360,7 +361,8 @@ class FicheController extends Controller
                     'chomageDemendeurPeriodeFin_individu' => $chomageDemendeurPeriodeFin_individu,
                     'validiterCafat_individu' => $validiterCafat_individu,
                     'validiterAidemedical_individu' => $validiterAidemedical_individu,
-                    'travailleurHandicaper_individu' => $travailleurHandicaper_individu
+                    'travailleurHandicaper_individu' => $travailleurHandicaper_individu,
+                    'formationNiveauScolaire_individu'=>$formationNiveauScolaire_individu
 
                 ]
             );

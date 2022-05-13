@@ -39,7 +39,7 @@ class CreateReservationController extends Controller
         } else {
             $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
             foreach ($dataI  as $row) {
-                $output .= '<li><a style="text-decoration:none;" href="fiche/'.$row->iopa_individu_id.'"  onclick="set_idindividu(' . $row->iopa_individu_id . ');"><span class="text-capitalize">' . $row->name_individu .' </span><span class="text-uppercase">'. $row->lastName_individu .'</span><span> née le : '. $row->dateofBirth_individu .'</span></a></li>';
+                $output .= '<li><a style="text-decoration:none;" href="fiche/'.$row->iopa_individu_id.'"  onclick="set_idindividu(' . $row->iopa_individu_id . ');"><span class="text-capitalize">' . $row->name_individu .' </span><span class="text-uppercase">'. $row->lastName_individu .'</span><span> née le : '. $row->dateofBirth_individu .'</span></a> ou rajouter l\'individu <a href="addCandidate/'.$request->get('query').'"><span>'.$request->get('query').'</span></a></li>';
             }
             $output .= '</ul>';
         }
