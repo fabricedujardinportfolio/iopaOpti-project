@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Agent;
 use App\Models\Fiche;
 use App\Models\Diplome;
+use App\Models\Experience;
 use App\Models\Individu;
 use Illuminate\Support\Str;
 use App\Models\FicheTypeVae;
@@ -15,6 +16,7 @@ use App\Models\FicheTypePaio;
 use App\Models\FicheTypeSpip;
 use App\Models\FicheTypeSpot;
 use App\Models\FicheTypeAtelier;
+use App\Models\Permi;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
 
@@ -206,6 +208,34 @@ class FicheController extends Controller
                     dd($exception->getMessage());
                 }
 
+                //ID des permis par rapport à ID de l'individu
+                try {
+                    $iopa_individu_id = $individu->first()->iopa_individu_id;
+                    $permis = Permi::where('iopa_individu_id', '=', $iopa_individu_id)->paginate(4, ["*"], "pagepermisIndividu$iopa_individu_id");
+                    // dd($diplomes);
+                    if ($permis === null) {
+                        // Si la variable individu egal null alors la variable egale erreur
+                        $permis = "erreur";                    
+                    }
+                    if ($permis === "erreur") {
+                        // individu call in URL doesn't exist   
+                        $ficheindividuNotExiste = "les permis de l'individu demandé n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } elseif ($permis->count() == 0) {
+                        $permis = "Aucun permi ?";
+                        // dd($permis);
+                    } elseif ($fiche->iopa_individu_id !== $permis->first()->iopa_individu_id) {
+                        // fiche de l'utilisateur doesn't exist
+                        $ficheindividuNotExiste = "les diplômes de l'individu n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } else {
+                        $permis;
+                    }
+                    // dd($diplomes);
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
+
                 //ID des diplôme par rapport à ID de l'individu
                 try {
                     $name = $individu->first()->name_individu;
@@ -233,6 +263,34 @@ class FicheController extends Controller
                 } catch (QueryException $exception) {
                     dd($exception->getMessage());
                 }
+
+                //ID des expériences par rapport à ID de l'individu
+                try {
+                    $name = $individu->first()->name_individu;
+                    // dd($name);
+                    $experiences = Experience::where('iopa_individu_id', '=', $individu->first()->iopa_individu_id)->paginate(4, ["*"], "pageExperience$name");
+                    // dd($diplomes);
+                    if ($experiences === null) {
+                        // Si la variable individu egal null alors la variable egale erreur
+                        $experiences = "erreur";
+                    }
+                    if ($experiences === "erreur") {
+                        // individu call in URL doesn't exist   
+                        $ficheindividuNotExiste = "les experiences de l'individu demandé n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } elseif ($experiences->count() == 0) {
+                        $experiences = "Aucune experience ?";
+                    } elseif ($fiche->iopa_individu_id !== $experiences->first()->iopa_individu_id) {
+                        // fiche de l'utilisateur doesn't exist
+                        $ficheindividuNotExiste = "les expériences de l'individu n'existe pas";
+                        return view('404.404', compact('ficheindividuNotExiste'));
+                    } else {
+                        $experiences;
+                    }
+                    // dd($experiences);
+                } catch (QueryException $exception) {
+                    dd($exception->getMessage());
+                }
                 // dd($individu->first()->dateofBirth_individu);
                 if ($individu->first()->dateofBirth_individu !==  "non-définie") {
                     $parseCarbone = Carbon::parse($individu->first()->dateofBirth_individu);
@@ -243,7 +301,7 @@ class FicheController extends Controller
                     $parseCarboneSolo =  "Définir la date de naissance";
                 }
                 // dd($individu->first()->portable_individu);
-                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips', 'ficheSpots', 'ficheAteliers', 'parseCarboneSolo', 'diplomes'));
+                return view('fiche.show',  compact('fiche', 'agent', 'individu', 'fichePaios', 'ficheVaes', 'ficheSpips', 'ficheSpots', 'ficheAteliers', 'parseCarboneSolo', 'diplomes','permis','experiences'));
             } catch (QueryException $exception) {
                 return view('auth.login');
             }
@@ -324,7 +382,6 @@ class FicheController extends Controller
             $formationNiveauScolaire_individu = $request->input('formationNiveauScolaire_individu');
             $inscriptionDemendeurEmploi_individu = $request->input('inscriptionDemendeurEmploi_individu');
             $permisDeConduire_individu = $request->input('permisDeConduire_individu');
-            // dd($request);
 
             // restaure valeur default for chomageDemendeurPeriodeDeb_individu and chomageDemendeurPeriodeFin_individu
             if ($chomageDemendeur_individu === null) {
@@ -385,7 +442,38 @@ class FicheController extends Controller
             
             $diplome->save();
             return redirect()->to(app('url')->previous()."/#statuProfiles");
-        } else {
+        } elseif ($request->has('permis') === true) {
+
+            // $iopa_individupermi_namesend = $request->input('iopa_individupermi_namesend');
+            // dd($iopa_individupermi_namesend);
+            $permis = new Permi;
+            $iopa_individupermi_name = $request->input('iopa_individupermi_namesend');
+            $iopa_individu_id = $request->input('iopa_individu_id');
+
+            $permis->iopa_individupermi_name = $iopa_individupermi_name;
+            $permis->iopa_individu_id = $iopa_individu_id;
+            
+            $permis->save();
+            return redirect()->to(app('url')->previous()."/#topInfo");
+        }elseif ($request->has('experience') === true) {
+
+            // dd($request);
+            $experience = new Experience;
+            $iopa_experienceIndividu_annee = $request->input('iopa_experienceIndividu_annee');
+            $iopa_experienceIndividu_metier = $request->input('iopa_experienceIndividu_metier');
+            $iopa_experienceIndividu_entreprise = $request->input('iopa_experienceIndividu_entreprise');
+            $iopa_experienceIndividu_duree = $request->input('iopa_experienceIndividu_duree');
+            $iopa_individu_id = $request->input('iopa_individu_id');
+
+            $experience->iopa_experienceIndividu_annee = $iopa_experienceIndividu_annee;
+            $experience->iopa_experienceIndividu_metier = $iopa_experienceIndividu_metier;
+            $experience->iopa_experienceIndividu_entreprise = $iopa_experienceIndividu_entreprise;
+            $experience->iopa_experienceIndividu_duree = $iopa_experienceIndividu_duree;
+            $experience->iopa_individu_id = $iopa_individu_id;
+            
+            $experience->save();
+            return redirect()->to(app('url')->previous()."/#formDiplome");
+        }else {
             $ficheindividuNotExiste = "Une erreur ces produite lors de l'enregistrement des données du profile";
                         return view('404.404', compact('ficheindividuNotExiste'));
         }
@@ -447,6 +535,47 @@ class FicheController extends Controller
         // return back('#formDiplome');
     }
 
+    public function updatepermi(Request $request, $id)
+    {
+        //
+        // dd($id);
+        $iopa_individupermi_name = $request->input('iopa_individupermi_name');
+
+
+        // dd($iopa_individupermi_name);
+        Permi::where('iopa_individupermi_id', $id)->update(
+            [
+                'iopa_individupermi_name' => $iopa_individupermi_name,
+
+            ]
+        );  
+        return redirect()->to(app('url')->previous()."/#topInfo");
+        // return back('#formDiplome');
+    }
+    public function updateExper(Request $request, $id)
+    {
+        //
+        // dd($id);
+        $iopa_experienceIndividu_annee = $request->input('iopa_experienceIndividu_annee');
+        $iopa_experienceIndividu_metier = $request->input('iopa_experienceIndividu_metier');
+        $iopa_experienceIndividu_entreprise = $request->input('iopa_experienceIndividu_entreprise');
+        $iopa_experienceIndividu_duree = $request->input('iopa_experienceIndividu_duree');
+        $iopa_individu_id = $request->input('iopa_individu_id');
+        // dd($iopa_individupermi_name);
+        Experience::where('iopa_experienceIndividu_id', $id)->update(
+            [
+                'iopa_experienceIndividu_annee' => $iopa_experienceIndividu_annee,
+                'iopa_experienceIndividu_metier'=>$iopa_experienceIndividu_metier,
+                'iopa_experienceIndividu_entreprise'=>$iopa_experienceIndividu_entreprise,
+                'iopa_experienceIndividu_duree'=>$iopa_experienceIndividu_duree,
+                'iopa_individu_id'=>$iopa_individu_id
+
+            ]
+        );  
+        return redirect()->to(app('url')->previous()."/#formDiplome");
+        // return back('#formDiplome');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -457,5 +586,15 @@ class FicheController extends Controller
     {
         Diplome::where('iopa_IndividuDiplome_id', '=', $id)->delete();        
         return redirect()->to(app('url')->previous()."/#statuProfiles");
+    }
+    public function destroypermi($id)
+    {
+        Permi::where('iopa_individupermi_id', '=', $id)->delete();        
+        return redirect()->to(app('url')->previous()."/#topInfo");
+    }
+    public function destroyexperience($id)
+    {
+        Experience::where('iopa_experienceIndividu_id', '=', $id)->delete();        
+        return redirect()->to(app('url')->previous()."/#formDiplome");
     }
 }

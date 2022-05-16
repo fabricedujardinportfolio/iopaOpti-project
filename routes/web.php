@@ -38,7 +38,11 @@ Route::resource('fiche',FicheController::class)->except('index');
 Route::get('fiche/{id}', [FicheController::class,"show"])->name("showFiche")->middleware('isLogged');
 Route::post('fiche/{id}', [FicheController::class,"updateIndividu"])->name("updateFiche")->middleware('isLogged');
 Route::get('fiche/diplomeDest/{id}', [FicheController::class,"destroy"])->name("destroyDiplome")->middleware('isLogged');
+Route::get('fiche/permisDest/{id}', [FicheController::class,"destroypermi"])->name("destroyPermi")->middleware('isLogged');
+Route::get('fiche/experDest/{id}', [FicheController::class,"destroyexperience"])->name("destroyExper")->middleware('isLogged');
 Route::post('fiche/diplomeUpdate/{id}', [FicheController::class,"update"])->name("updateDiplomeFiche")->middleware('isLogged');
+Route::post('fiche/permiUpdate/{id}', [FicheController::class,"updatepermi"])->name("updatePermiFiche")->middleware('isLogged');
+Route::post('fiche/experUpdate/{id}', [FicheController::class,"updateExper"])->name("updateExperFiche")->middleware('isLogged');
 // Route::upda('fiche/{id}', [FicheController::class,"updateDiplomeIndividu"])->name("updateDiplomeFiche")->middleware('isLogged');
 Route::get('fiche/ficheCandidate/{id}', [FicheController::class,"addFicheCandidat"])->name("addFicheCandidat")->middleware('isLogged');
 
