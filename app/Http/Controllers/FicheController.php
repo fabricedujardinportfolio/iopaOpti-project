@@ -251,7 +251,7 @@ class FicheController extends Controller
                         $ficheindividuNotExiste = "les diplômes de l'individu demandé n'existe pas";
                         return view('404.404', compact('ficheindividuNotExiste'));
                     } elseif ($diplomes->count() == 0) {
-                        $diplomes = "Aucune diplôme ?";
+                        $diplomes = "Aucun diplôme ?";
                     } elseif ($fiche->iopa_individu_id !== $diplomes->first()->iopa_individu_id) {
                         // fiche de l'utilisateur doesn't exist
                         $ficheindividuNotExiste = "les diplômes de l'individu n'existe pas";

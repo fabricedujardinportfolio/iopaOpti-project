@@ -912,12 +912,12 @@
                                                         <div class="modal-body">
                                                             <input type="text" class="form-control"
                                                                 id="diplome" name="anneDiplome_individu"
-                                                                placeholder="Nom du diplôme" required>
+                                                                placeholder="Année" maxlength="4" required>
                                                             <input type="text" class="form-control my-1"
-                                                                id="annee" placeholder="Année(s)"
-                                                                name="nameDiplome_individu" required>
+                                                                id="annee" placeholder="Nom du diplôme"
+                                                                name="nameDiplome_individu" required maxlength="50">
                                                             <input type="text" class="form-control my-1 d-none"
-                                                                id="annee" placeholder="Année(s)"
+                                                                id="annee" placeholder="idividuId"
                                                                 name="iopa_individu_id"
                                                                 value="{{ $individu->first()->iopa_individu_id }}"
                                                                 required>
@@ -937,7 +937,7 @@
                                     </div>
                                     <div class="col-md-12">
 
-                                        @if ($diplomes !== 'Aucune diplôme ?')
+                                        @if ($diplomes !== 'Aucun diplôme ?')
                                             <table class="table">
                                                 <thead>
                                                     <tr>
